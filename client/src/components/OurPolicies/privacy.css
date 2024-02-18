@@ -1,0 +1,36 @@
+.privacy-policy {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .section-subtitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .privacy-section {
+    margin-bottom: 30px;
+    opacity: 0;
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

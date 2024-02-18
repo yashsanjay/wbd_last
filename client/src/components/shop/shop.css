@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap');
+
+* {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.home {
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home .container {
+  margin: 100px;
+  padding-bottom: 60px;
+}
+
+.home .container .teddy img {
+  height: 400px;
+  border-radius: 200px;
+  display: block;
+  float: right;
+  margin-left: 20px;
+}
+
+.home .container .content1 {
+  line-height: 1.1;
+  width: 100%;
+  font-size: medium;
+  padding-top: 90px;
+}
+
+.home h1 {
+  line-height: 1.1;
+  color: #006e9e;
+}
+
+.home h4 {
+  line-height: 1.1;
+  padding-bottom: 5px;
+}
+
+.home button {
+  font-size: 20px;
+  background-color: #006e9e;
+  color: white;
+  border: 2px solid white;
+  border-radius: 20px;
+  width: 170px;
+  height: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.home button:hover {
+  background-color: #ac1c6b;
+  color: white;
+}
+
+.home .container .teddy .img2 {
+  height: 400px;
+  display: block;
+  float: left;
+  margin-right: 100px;
+}
+
+.reveal {
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all 1.2s ease;
+}
+
+.reveal.active {
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+.medicines-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.medicines-container button{
+
+  font-size: 15px;
+  background-color: #006e9e;
+  color: white;
+  border: 2px solid white;
+  border-radius: 20px;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.medicines-container button:hover{
+  background-color: #d44694;
+  color: white;
+}
+.search-input {
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.medicines-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.medicine-card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.medicine-card:hover {
+  transform: scale(1.05);
+}
+
+.medicine-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.cost {
+  font-size: 16px;
+}
+
+.description {
+  font-size: 14px;
+}
+
+.medicines-list button {
+  font-size: 20px;
+  background-color: #006e9e;
+  color: white;
+  border: 2px solid white;
+  border-radius: 20px;
+  width: 170px;
+  height: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.medicines-list button:hover {
+  background-color: #d44694;
+  color: white;
+}
+
+/* Cart.css */
+
+.cart-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.cart-item img {
+  max-width: 80px;
+  max-height: 80px;
+  margin-right: 10px;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details p {
+  float: right;
+}
+
+.cart-total {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.cart-item-details button {
+  background-color: #0088cc;
+  color: #fff;
+  border: 2px solid #0088cc;
+  border-radius: 5px;
+  padding: 8px 16px; /* Adjusted padding for a smaller size */
+  font-size: 14px; /* Reduced font size */
+  font-weight: bold;
+  width: auto;
+  height: 40px; /* Reduced height */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.cart-item-details button:hover {
+  background-color: #d44694;
+  color: rgb(248, 248, 248);
+  border-color: white;
+}
+/* Add this to your CSS file or component stylesheet */
+
+.notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4caf50; /* Green background color */
+  color: #fff; /* White text color */
+  text-align: center;
+  padding: 15px;
+  z-index: 1000; /* Ensure it's above other elements */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification p {
+  margin: 0;
+}
+
+/* Add transition for a smooth appearance and disappearance effect */
+.notification-enter {
+  opacity: 0;
+}
+
+.notification-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.notification-exit {
+  opacity: 1;
+}
+
+.notification-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+

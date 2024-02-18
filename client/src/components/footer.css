@@ -1,0 +1,42 @@
+.footer li a:hover {
+    color: gold;
+
+}
+.footer li a {
+
+
+    border-radius: 20px;
+
+}
+
+.footer {
+    background-color: black;
+    color: aliceblue;
+
+    align-items: center;
+
+
+    color: #FCF8E8;
+    display: flex;
+    justify-content: space-around;
+
+    width: 100%;
+    ;
+    flex-wrap: wrap;
+    flex-grow: inherit;
+
+}
+
+.footer li a {
+    color: grey;
+}
+
+.footer h4 {
+    color: white;
+}
+
+.footer div {
+    margin: 10px;
+    padding: 20px;
+
+}

@@ -1,0 +1,80 @@
+/* Premium.module.css */
+
+.table {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .priceSection {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .innerArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .text {
+    font-size: 1rem; /* Default font size for text */
+    color: #333; /* Default text color */
+  }
+  
+  .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .packageName {
+    font-size: 1.2rem; /* Default font size for package name */
+    color: #555; /* Default color for package name */
+  }
+  
+  .features {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .listName {
+    font-size: 1rem; /* Default font size for list items */
+    color: #555; /* Default color for list items */
+  }
+  
+  .icon {
+    margin-left: 10px;
+  }
+  
+  .check {
+    color: green;
+  }
+  
+  .cross {
+    color: red;
+  }
+  
+  .btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  button {
+    background-color: #82c6f3;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #5a9bd5;
+  }
+  
