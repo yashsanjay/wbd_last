@@ -104,7 +104,7 @@ function App() {
               }
             />
             <Route
-              path="/login"
+              path="/home"
               element={
                 <ProtectedRoute>
                   <HomePage />
