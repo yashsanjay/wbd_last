@@ -11,3 +11,12 @@
   border: 1px solid gray;
   padding: 30px;
 }
+
+.login-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
