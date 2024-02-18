@@ -37,7 +37,7 @@ const Profile = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
-        navigate("/");
+        navigate("/home");
       } else {
         message.error(res.data.success);
       }
