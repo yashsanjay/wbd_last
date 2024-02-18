@@ -13,6 +13,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "password is require"],
   },
+  phone: {
+    type: Number,
+    required: [true, "Number is require"],
+  },
+  district: {
+    type: String,
+    required: [true, "district is require"],
+  },
+  age: {
+    type: Number,
+    required: [true, "Age is require"],
+  },
   isAdmin: {
     type: Boolean,
     default: false,
