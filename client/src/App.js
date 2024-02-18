@@ -41,6 +41,8 @@ import Doctors from './pages/admin/Doctors';
 import BookingPage from './pages/BookingPage';
 import Appointments from './pages/Appointments';
 import DoctorAppointments from './pages/doctor/DoctorAppointments';
+import HomePage from "./pages/HomePage";
+
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -82,6 +84,7 @@ function App() {
           <Route path="/MedHome" element={<Homee />} />
           <Route path="/Medicines" element={<Medicines cart={cart} setCart={setCart} />} />
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+          
         {/* </Routes>
 
         <Routes> */}
@@ -93,6 +96,14 @@ function App() {
           <Route path="/notification" element={<ProtectedRoute><NotificationPage /></ProtectedRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <HomePage />
+                </ProtectedRoute>
+              }
+            />
           <Route path="/appointments" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
           <Route path="/doctor-appointments" element={<ProtectedRoute><DoctorAppointments /></ProtectedRoute>} />
         </Routes>
