@@ -48,7 +48,7 @@ const Appointments = () => {
     {
       title: "Date & Time",
       dataIndex: "date",
-      render: (text, record) => (
+      render: (time, record) => (
         <span>
           {moment(record.date).format("DD-MM-YYYY")} &nbsp;
           {moment(record.time).format("HH:mm")}

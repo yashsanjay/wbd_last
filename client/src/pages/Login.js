@@ -14,7 +14,7 @@ const Login = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post("/api/v1/user/login", values);
-      window.location.reload();
+      // window.location.reload();
       dispatch(hideLoading());
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
@@ -30,7 +30,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="form-container ">
+    <div className="login-container ">
       <Form
         layout="vertical"
         onFinish={onfinishHandler}

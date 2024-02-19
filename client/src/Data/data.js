@@ -1,16 +1,16 @@
 export const userMenu = [
   {
     name: "Home",
-    path: "/",
+    path: "/home",
     icon: "fa-solid fa-house",
   },
   {
-    name: "Appointments",
+    name: "Book Appointment",
     path: "/appointments",
     icon: "fa-solid fa-list",
   },
   {
-    name: "Apply Doctor",
+    name: "Apply  as Doctor",
     path: "/apply-doctor",
     icon: "fa-solid fa-user-doctor",
   },

@@ -2,6 +2,7 @@
   padding: 10px;
   height: 100vh;
 }
+
 .layout {
   display: flex;
 }
@@ -10,10 +11,15 @@
   min-height: 100%;
   width: 300px;
   border-radius: 5px;
-  background-color: rgb(51, 1, 1);
-  box-shadow: 0 0 2px gray;
+  background-color: rgb(25, 121, 173);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added a softer shadow */
   margin-right: 20px;
   color: white;
+  transition: width 0.3s; /* Added a smooth transition */
+}
+
+.sidebar:hover {
+  width: 320px; /* Sidebar expands on hover */
 }
 
 .content {
@@ -24,42 +30,51 @@
 .header {
   height: 10vh;
   margin-bottom: 20px;
-  box-shadow: 0 0 2px gray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added a subtle shadow */
   background-color: white;
 }
+
 .body {
   height: 85vh;
   margin-bottom: 20px;
-  box-shadow: 0 0 2px gray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added a subtle shadow */
   background-color: white;
 }
+
 .logo h6 {
-  font-size: 1.5rem;
+  font-size: 1.8rem; /* Increased font size */
   text-align: center;
-  margin: 20px 0px;
+  margin: 20px 0;
+  color: rgb(51, 1, 1);
 }
+
 .menu {
-  margin-top: 50px;
+  margin-top: 20px; /* Reduced top margin */
 }
+
 .menu-item {
-  margin-top: 30px;
+  margin-top: 20px;
 }
+
 .menu-item a {
   color: white;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased font size */
 }
+
 .menu-item i {
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased font size */
   margin: 0 15px;
 }
+
 .active {
-  background-color: white;
+  background-color: rgb(111, 188, 239);
   padding: 10px;
 }
+
 .active a,
 .active i {
-  color: rgb(51, 1, 1);
+  color: white;
 }
 
 .header-content {
@@ -72,12 +87,18 @@
 
 .header-content i {
   margin-right: 20px;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased font size */
 }
+
 .header-content a {
   text-decoration: none;
-  font-size: 1.2rem;
-  color: blue;
+  font-size: 1.4rem; /* Increased font size */
+  color: rgb(51, 1, 1);
   margin: 0 10px;
   text-transform: uppercase;
+  transition: color 0.3s; /* Added a smooth color transition */
+}
+
+.header-content a:hover {
+  color: blue; /* Color change on hover */
 }

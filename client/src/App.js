@@ -17,7 +17,7 @@ import PaymentDashboard from './components/Premium/PaymentDashboard'
 import Doctors_List from './components/doctor/doc_list';
 
 import User from './components/Home/user'; 
-import Profile from './components/doctor/doc_profile';
+// import Profile from './components/doctor/doc_profile';
 import Medicines from './components/shop/Medicines';
 import Cart from './components/shop/Cart';
 import Homee from './components/shop/Homee'
@@ -42,6 +42,7 @@ import BookingPage from './pages/BookingPage';
 import Appointments from './pages/Appointments';
 import DoctorAppointments from './pages/doctor/DoctorAppointments';
 import HomePage from "./pages/HomePage";
+import Profile from './pages/doctor/Profile'
 
 
 function App() {
@@ -76,7 +77,7 @@ function App() {
           <Route path="/Admin" element={<AdminPage />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/PaymentDashboard" element={<PaymentDashboard />} />
-          <Route path="/doc_profile" element={<Profile />} />
+          {/* <Route path="/doc_profile" element={<Profile />} /> */}
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/greivance" element={<GrievancesAndRedressal />} />
           <Route path="/fakejob" element={<FakeJobAndFrauds />} />
