@@ -97,13 +97,10 @@
   margin: 0 10px;
   text-transform: uppercase;
   transition: color 0.3s; /* Added a smooth color transition */
-<<<<<<< HEAD
-=======
 }
 
 .header-content a:hover {
   color: blue; /* Color change on hover */
->>>>>>> 3ac43d1a9234b12605a823c196413f9a8136f82a
 }
 
 .header-content a:hover {
