@@ -1,6 +1,11 @@
 .form-container {
+<<<<<<< HEAD
   margin-top: 100;
   margin-bottom: 50;
+=======
+  margin-top: 50px;
+  margin-bottom: 50px;
+>>>>>>> 3ac43d1a9234b12605a823c196413f9a8136f82a
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,8 +18,18 @@
 }
 
 .login-container {
+<<<<<<< HEAD
   display: flex;
   align-items: center;
   justify-content: center;
   height: 70vh;
 }
+=======
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+>>>>>>> 3ac43d1a9234b12605a823c196413f9a8136f82a
