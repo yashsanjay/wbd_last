@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 import './doc_profile.css'
 
-const Profile = () => {
+const Profile_doctor = () => {
     // Access the userName from the Redux state
     const userName = useSelector((state) => state.user.userName);
 
@@ -84,4 +84,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default Profile_doctor;
