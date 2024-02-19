@@ -100,7 +100,7 @@ const BookingPage = () => {
   }, []);
   return (
     <Layout>
-      <h3>Booking Page</h3>
+      <h3 >Booking Page</h3>
       <div className="container m-2">
         {doctors && (
           <div>
@@ -112,7 +112,7 @@ const BookingPage = () => {
               Timings : {doctors.timings && doctors.timings[0]} -{" "}
               {doctors.timings && doctors.timings[1]}{" "}
             </h4>
-            <div className="d-flex flex-column w-50">
+            <div className="d-flex flex-column w-200">
               <DatePicker
                 aria-required={"true"}
                 className="m-2"

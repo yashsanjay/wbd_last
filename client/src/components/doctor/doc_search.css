@@ -11,6 +11,27 @@ html {
     scroll-behavior: smooth;
 }
 
+/* doc_search.css */
+
+#heading {
+    font-family: 'Yesava One', cursive; /* Primary font */
+    font-size: 2.5em;
+    color: #100202;
+    margin-bottom: 20px;
+  }
+  
+  .search {
+    font-family: 'Yesava One', cursive; /* Secondary font for the search input */
+  }
+  .heading-link {
+    text-decoration: none;
+    color: #000; /* Default text color for unvisited links */
+    border-bottom: 0.01px solid transparent; /* Set underline color to transparent */
+  }
+  
+  /* Add any other existing styles */
+  
+
 .ourdoc {
     background-color: #ddf7ff;
     font-family: 'Yeseva One', cursive;
@@ -400,7 +421,7 @@ html {
 
 .doctor h1 {
     font-family: 'Secular One', sans-serif;
-    font-family: 'Yeseva One', cursive;
+    font-family: 'Yesava One', cursive;
 
 }
 

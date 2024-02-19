@@ -2,13 +2,18 @@ import React from "react";
 import './doc_search.css';
 import Doctors_List from "./doc_list";
 import { Link } from "react-router-dom";
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Secular+One&family=Yesava+One&display=swap"
+/>
+
 
 function Docsearch() {
     return (
         <>
             <section class="image">
                         <Link to="/doctor_list">
-                <div class="container-image">
+                <div class="container-image heading">
                     <h1 id="heading">FIND YOUR NEAREST DOCTOR NOW</h1>
                     
                     

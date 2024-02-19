@@ -1,0 +1,47 @@
+.notification-container {
+    margin: 20px;
+  }
+  
+  .notification-header {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .notification-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .mark-all-read,
+  .delete-all-read {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  .notification-card {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .notification-text {
+    padding: 10px;
+  }
+  
+  .notification-text:hover {
+    background-color: #f0f0f0;
+  }
+
+  .mark-all-read:hover,
+.delete-all-read:hover {
+  color: blue;
+}
+
+.notification-card:hover {
+  background-color: #f0f0f0;
+}
+  
+
+  /* Add any additional styles as needed */
+  
