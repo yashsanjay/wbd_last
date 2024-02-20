@@ -3,6 +3,10 @@ const colors = require("colors");
 const moragan = require("morgan");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const multer=require('multer');
+const path=require('path');
+
+
 
 //dotenv conig
 dotenv.config();
@@ -12,6 +16,25 @@ connectDB();
 
 //rest obejct
 const app = express();
+
+
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+const upload = multer({ storage });
+app.use('/uploads', express.static('uploads'));
+
+app.post('/upload', upload.single('profileImage'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+
+  const imageUrl = `/uploads/${req.file.filename}`;
+  res.json({ imageUrl });
+});
 
 //middlewares
 app.use(express.json());

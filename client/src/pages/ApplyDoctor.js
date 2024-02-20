@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import axios from "axios";
 import moment from "moment";
+import ImageUpload from "./ImageUpload";
 const ApplyDoctor = () => {
   const { user } = useSelector((state) => state.user);
 
@@ -68,6 +69,16 @@ const ApplyDoctor = () => {
               rules={[{ required: true }]}
             >
               <Input type="text" placeholder="your last name" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={24} lg={8}>
+            <Form.Item
+              label="Profile Photo"
+              name="profilephoto"
+              required
+              rules={[{ required: true }]}
+            >
+              <ImageUpload/>
             </Form.Item>
           </Col>
           <Col xs={24} md={24} lg={8}>
