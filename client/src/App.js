@@ -44,6 +44,8 @@ import DoctorAppointments from './pages/doctor/DoctorAppointments';
 import HomePage from "./pages/HomePage";
 import Profile from './pages/doctor/Profile'
 
+import ImageUpload from './pages/ImageUpload';
+
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -85,6 +87,7 @@ function App() {
           <Route path="/MedHome" element={<Homee />} />
           <Route path="/Medicines" element={<Medicines cart={cart} setCart={setCart} />} />
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+          <Route path="/ImageUpload"  element={<ImageUpload/>}/>
           
         {/* </Routes>
 
