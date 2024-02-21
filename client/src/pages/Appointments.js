@@ -1,14 +1,18 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Layout from "./../components/Layout";
 import moment from "moment";
-import { Table } from "antd";
+import { Table, Spin } from "antd"; // Import Spin from antd for loading indicator
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
+  const [loadingUserDetails, setLoadingUserDetails] = useState(false); // New loading state
 
   const getAppointments = async () => {
     try {
+      setLoadingUserDetails(true); // Set loading state to true
       const res = await axios.get("/api/v1/user/user-appointments", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -16,9 +20,28 @@ const Appointments = () => {
       });
       if (res.data.success) {
         setAppointments(res.data.data);
+
+        // Extract userIds from appointments
+        const userIds = res.data.data.map((appointment) => appointment.userId);
+
+        // Fetch user details for each userId
+        const usersData = await Promise.all(
+          userIds.map((userId) =>
+            axios.get(`/api/v1/doctor/${userId}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            })
+          )
+        );
+
+        // Store user details in the state
+        setUserDetails(usersData.map((user) => user.data.data));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    } finally {
+      setLoadingUserDetails(false); // Set loading state to false after API call completes
     }
   };
 
@@ -31,20 +54,14 @@ const Appointments = () => {
       title: "ID",
       dataIndex: "_id",
     },
-    // {
-    //   title: "Name",
-    //   dataIndex: "name",
-    //   render: (text, record) => (
-    //     <span>
-    //       {record.doctorInfo.firstName} {record.doctorInfo.lastName}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: "Phone",
-    //   dataIndex: "phone",
-    //   render: (text, record) => <span>{record.doctorInfo.phone}</span>,
-    // },
+    {
+      title: "User Details",
+      dataIndex: "userId",
+      render: (userId) => {
+        const userDetail = userDetails.find((user) => user._id === userId);
+        return userDetail ? `${userDetail.name}` : "N/A";
+      },
+    },
     {
       title: "Date & Time",
       dataIndex: "date",
@@ -63,9 +80,15 @@ const Appointments = () => {
 
   return (
     <Layout>
-      <h1>Appoinmtnets Lists</h1>
-      <Table columns={columns} dataSource={appointments} />
-    </Layout>
+    <h1>Appointments List</h1>
+    <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", height: "100vh" ,minWidth:"1000px"}}>
+      {loadingUserDetails ? ( // Show loading indicator if user details are still loading
+        <Spin size="large" />
+      ) : (
+        <Table columns={columns} dataSource={appointments}style={{minWidth:"75vw"}} />
+      )}
+    </div>
+  </Layout>
   );
 };
 

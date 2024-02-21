@@ -22,6 +22,7 @@ const NotificationPage = () => {
         {
           userId: user._id,
         },
+        
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

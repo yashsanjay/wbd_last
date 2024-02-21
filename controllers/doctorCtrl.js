@@ -66,17 +66,47 @@ const doctorAppointmentsController = async (req, res) => {
     const appointments = await appointmentModel.find({
       doctorId: doctor._id,
     });
+    console.log(appointments)
     res.status(200).send({
       success: true,
       message: "Doctor Appointments fetch Successfully",
       data: appointments,
+
     });
+    
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       error,
       message: "Error in Doc Appointments",
+    });
+  }
+};
+
+
+const getUserInfoController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.params.userId });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User data fetched successfully",
+      data: user,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      error,
+      message: "Error in fetching user details",
     });
   }
 };
@@ -116,4 +146,5 @@ module.exports = {
   getDoctorByIdController,
   doctorAppointmentsController,
   updateStatusController,
+  getUserInfoController
 };

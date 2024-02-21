@@ -3,6 +3,7 @@ const {
   getAllUsersController,
   getAllDoctorsController,
   changeAccountStatusController,
+  getUserDetailsController
 } = require("../controllers/adminCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -13,6 +14,8 @@ router.get("/getAllUsers", authMiddleware, getAllUsersController);
 
 //GET METHOD || DOCTORS
 router.get("/getAllDoctors", authMiddleware, getAllDoctorsController);
+
+router.get("/details",authMiddleware,getUserDetailsController);
 
 //POST ACCOUNT STATUS
 router.post(
