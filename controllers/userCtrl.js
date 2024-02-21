@@ -98,14 +98,14 @@ const applyDoctorController = async (req, res) => {
     await userModel.findByIdAndUpdate(adminUser._id, { notifcation });
     res.status(201).send({
       success: true,
-      message: "Doctor Account Applied SUccessfully",
+      message: "Doctor Account Applied Successfully",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       error,
-      message: "Error WHile Applying For Doctotr",
+      message: "Error While Applying For Doctotr",
     });
   }
 };
@@ -188,7 +188,7 @@ const bookeAppointmnetController = async (req, res) => {
     const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });
     user.notifcation.push({
       type: "New-appointment-request",
-      message: `A nEw Appointment Request from ${req.body.userInfo.name}`,
+      message: `A new Appointment Request from ${req.body.userInfo.name}`,
       onCLickPath: "/user/appointments",
     });
     await user.save();

@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import Layout from "./../../components/Layout";
 import axios from "axios";
 import { Table } from "antd";
+import styled from "styled-components";
+
+const HomePageWrapper = styled.div`
+  /* Styles for the entire HomePage component */
+  max-width: 1350px; /* Set your desired max-width */
+  margin: 0 auto; /* Center the content */
+  overflow: scroll; /* Add both horizontal and vertical scrollbars if needed */
+  height: 200%; /* Ensure the block takes up 100% of available height */
+  padding: 20px; /* Add padding to the content if needed */
+`;
+
 const Users = () => {
   const [users, setUsers] = useState([]);
 
@@ -52,10 +63,12 @@ const Users = () => {
   ];
 
   return (
+    <HomePageWrapper>
     <Layout>
       <h1 className="text-center m-2">Users List</h1>
       <Table columns={columns} dataSource={users} />
     </Layout>
+    </HomePageWrapper>
   );
 };
 

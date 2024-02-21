@@ -46,6 +46,7 @@ import Profile from './pages/doctor/Profile'
 
 import ImageUpload from './pages/ImageUpload';
 import PremiumPlansPage from './components/Premium/PremiumPlansPage';
+import AdminDashboard from './pages/admin/Admin';
 
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
           <Route path="/ImageUpload"  element={<ImageUpload/>}/>
           <Route path="/newpremium" element={<PremiumPlansPage/>}/>
+          <Route path="/admindashboard"  element={<AdminDashboard/>}/>
           
         {/* </Routes>
 

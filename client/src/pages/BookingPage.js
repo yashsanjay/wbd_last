@@ -267,6 +267,7 @@ const BookingPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+        // alert("Booking Successful")
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -286,6 +287,7 @@ const BookingPage = () => {
   };
 
   return (
+    <HomePageWrapper>
     <Layout>
       <h3>Booking Page</h3>
       <div className="container m-2">
@@ -332,6 +334,7 @@ const BookingPage = () => {
         )}
       </div>
     </Layout>
+    </HomePageWrapper>
   );
 };
 

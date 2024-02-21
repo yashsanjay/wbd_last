@@ -1,106 +1,86 @@
 /* header.css */
 
-header {
-  background-color: black;
-  padding: 10px 0;
-}
+/* Add your existing styles here */
 
 .navbar {
+  background-color: 	#10898d;
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-logo-container {
+  display: flex;
   align-items: center;
 }
 
 .navbar-logo {
-  height: 50px; /* Adjust the height as needed */
+  max-height: 40px;
 }
 
-.navbar-list {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-/* Hide the toggler for larger screens */
 .navbar-toggler {
-  display: none;
-}
-
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-  .navbar-list {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: black;
-      text-align: center;
-  }
-
-  .navbar-list.show {
-      display: flex;
-  }
-
-  .navbar-list li {
-      margin: 10px 0;
-  }
-
-  .navbar-toggler {
-      display: block;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: white;
-  }
+  display: none; /* Hide the toggler on larger screens */
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  
 }
 
 .navbar-list {
   list-style: none;
   display: flex;
+  gap: 20px;
   margin: 0;
-  padding: 0;
-}
-
-.navbar-list li {
-  margin: 0 10px;
 }
 
 .navbar-list a {
   text-decoration: none;
-  color: white;
+  color: #333333;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
-/* Media query for smaller screens */
+.navbar-list a:hover {
+  color: #007bff;
+}
+
+/* Responsive Styles */
+
 @media (max-width: 768px) {
+  .navbar-toggler {
+      display: block;
+  }
+
   .navbar-list {
-      display: none;
+      display: flex;
       flex-direction: column;
       position: absolute;
       top: 60px;
       left: 0;
       width: 100%;
-      background-color: black;
-      text-align: center;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1;
   }
 
-  .navbar-list.show {
-      display: flex;
+  .nav-open .navbar-list {
+      opacity: 1;
+      visibility: visible;
   }
 
   .navbar-list li {
-      margin: 10px 0;
-  }
-
-  .navbar-toggler {
-      display: block;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: white;
+      width: 100%;
+      text-align: center;
   }
 }

@@ -16,10 +16,20 @@ const Login = () => {
       const res = await axios.post("/api/v1/user/login", values);
       window.location.reload();
       dispatch(hideLoading());
+  
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
+  
         message.success("Login Successfully");
-        navigate("/home");
+  
+        // Check if the user is an admin
+        const isAdmin = res.data.isAdmin;
+  
+        if (isAdmin) {
+          navigate("/admindashboard");
+        } else {
+          navigate("/home");
+        }
       } else {
         message.error(res.data.message);
       }
@@ -29,6 +39,7 @@ const Login = () => {
       message.error("something went wrong");
     }
   };
+  
   return (
     <div className="login-container ">
       <Form
