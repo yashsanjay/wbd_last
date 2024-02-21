@@ -9,7 +9,7 @@
 
 .sidebar {
   min-height: 100%;
-  width: 300px;
+  width: 320px;
   border-radius: 5px;
   background-color: rgb(25, 121, 173);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added a softer shadow */
@@ -19,7 +19,7 @@
 }
 
 .sidebar:hover {
-  width: 320px; /* Sidebar expands on hover */
+  width: 350px; /* Sidebar expands on hover */
 }
 
 .content {
@@ -35,7 +35,7 @@
 }
 
 .body {
-  height: 85vh;
+  height: 100%;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added a subtle shadow */
   background-color: white;

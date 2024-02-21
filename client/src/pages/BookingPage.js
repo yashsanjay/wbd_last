@@ -6,6 +6,17 @@ import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import styled from "styled-components";
+
+// Define a styled component for HomePage
+const HomePageWrapper = styled.div`
+  /* Styles for the entire HomePage component */
+  max-width: 1350px; /* Set your desired max-width */
+  margin: 0 auto; /* Center the content */
+  overflow: scroll; /* Add both horizontal and vertical scrollbars if needed */
+  height: 200%; /* Ensure the block takes up 100% of available height */
+  padding: 20px; /* Add padding to the content if needed */
+`;
 
 const BookingPage = () => {
   const { user } = useSelector((state) => state.user);
@@ -100,6 +111,7 @@ const BookingPage = () => {
     //eslint-disable-next-line
   }, []);
   return (
+    <HomePageWrapper>
     <Layout>
       <h3 >Booking Page</h3>
       <div className="container m-2">
@@ -146,6 +158,7 @@ const BookingPage = () => {
         )}
       </div>
     </Layout>
+    </HomePageWrapper>
   );
 };
 
