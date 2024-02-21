@@ -79,7 +79,6 @@ const Appointments = () => {
   ];
 
   return (
-    
     <Layout>
     <h1>Appointments List</h1>
     <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", height: "100vh" ,minWidth:"1000px"}}>
