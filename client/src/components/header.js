@@ -25,10 +25,10 @@ function Header() {
                         <ul className={`navbar-list ${isNavOpen ? 'nav-open' : ''}`}>
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/doctor">Doctors</Link></li>
-                            <li><Link to="/medicines">Medicines</Link></li>
+                            {/* <li><Link to="/medicines">Medicines</Link></li> */}
                             {/* <li><Link to="/fsd">First Aid/Emergency</Link></li> */}
                             <li><Link to="/premium">Premium</Link></li>
-                            <li><Link to="/clientoffers">Offers</Link></li>
+                            {/* <li><Link to="/clientoffers">Offers</Link></li> */}
                             <li><Link to="/home" style={{textWrap:'nowrap'}}>Sign In</Link></li>
                         </ul>
                     </div>

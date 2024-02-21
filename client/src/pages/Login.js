@@ -14,23 +14,32 @@ const Login = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post("/api/v1/user/login", values);
+      console.log("abc")
+      console.log(res)
       window.location.reload();
       dispatch(hideLoading());
   
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
+        console.log(res.data.token);
   
         message.success("Login Successfully");
   
         // Check if the user is an admin
         const isAdmin = res.data.isAdmin;
+        console.log(isAdmin)
+        // console.log(res.data.phone)
   
-        if (isAdmin) {
+        if(isAdmin==true) {
+          console.log(isAdmin)
           navigate("/admindashboard");
-        } else {
+        }
+        else {
+          console.log(isAdmin)
           navigate("/home");
         }
-      } else {
+      } 
+      else {
         message.error(res.data.message);
       }
     } catch (error) {
