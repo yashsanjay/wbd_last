@@ -6,6 +6,7 @@ import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/features/alertSlice";
 import moment from "moment";
+import ImageUpload from "../ImageUpload";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.user);
@@ -111,6 +112,15 @@ const Profile = () => {
                 <Input type="text" placeholder="your last name" />
               </Form.Item>
             </Col>
+            <Col xs={24} md={24} lg={8}>
+            <Form.Item
+              label="Profile Photo"
+              name="profilephoto"
+              
+            >
+              <ImageUpload/>
+            </Form.Item>
+          </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item
                 label="Phone No"

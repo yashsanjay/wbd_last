@@ -7,7 +7,7 @@ import './footer.css'
 
 function Footer() {
     return (
-        <footer>
+        <footer style={{marginTop:"15rem"}}>
             <div class="footer">
 
                 <div>

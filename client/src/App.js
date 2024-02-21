@@ -45,6 +45,7 @@ import HomePage from "./pages/HomePage";
 import Profile from './pages/doctor/Profile'
 
 import ImageUpload from './pages/ImageUpload';
+import PremiumPlansPage from './components/Premium/PremiumPlansPage';
 import AdminDashboard from './pages/admin/Admin';
 import BookingPayment from './pages/BookingPayments';
 
@@ -90,6 +91,7 @@ function App() {
           {/* <Route path="/Medicines" element={<Medicines cart={cart} setCart={setCart} />} /> */}
           {/* <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} /> */}
           <Route path="/ImageUpload"  element={<ImageUpload/>}/>
+          <Route path="/newpremium" element={<PremiumPlansPage/>}/>
           <Route path="/admindashboard"  element={<AdminDashboard/>}/>
           <Route path="/bookingPayment"  element={<BookingPayment/>}/>
           
