@@ -19,7 +19,7 @@ const getDoctorInfoController = async (req, res) => {
   }
 };
 
-// update doc profile
+// te doc profile
 const updateProfileController = async (req, res) => {
   try {
     const doctor = await doctorModel.findOneAndUpdate(

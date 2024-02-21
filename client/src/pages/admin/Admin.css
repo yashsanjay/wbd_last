@@ -1,0 +1,38 @@
+/* AdminDashboard.css */
+
+.dashboard-stats {
+    margin: 20px auto;
+    max-width: 800px;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .stats-item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 45%; /* Adjust as needed */
+  }
+  
+  .doctors-box {
+    background-color: #6cb2eb; /* Change color as needed */
+  }
+  
+  .patients-box {
+    background-color: #ffb347; /* Change color as needed */
+  }
+  
+  .stats-item h2 {
+    margin-bottom: 10px;
+  }
+  
+  .stats-item p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  

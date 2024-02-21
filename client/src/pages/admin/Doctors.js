@@ -5,7 +5,8 @@ import { message, Table } from "antd";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
-  //getUsers
+
+  // getUsers
   const getDoctors = async () => {
     try {
       const res = await axios.get("/api/v1/admin/getAllDoctors", {
@@ -35,7 +36,11 @@ const Doctors = () => {
       );
       if (res.data.success) {
         message.success(res.data.message);
-        window.location.reload();
+        // Update the status locally
+        const updatedDoctors = doctors.map((doctor) =>
+          doctor._id === record._id ? { ...doctor, status } : doctor
+        );
+        setDoctors(updatedDoctors);
       }
     } catch (error) {
       message.error("Something Went Wrong");
@@ -69,7 +74,7 @@ const Doctors = () => {
       dataIndex: "actions",
       render: (text, record) => (
         <div className="d-flex">
-          {record.status === "pending" ? (
+          {((record.status === "pending")||(record.status==="rejected")) ? (
             <button
               className="btn btn-success"
               onClick={() => handleAccountStatus(record, "approved")}
@@ -77,7 +82,12 @@ const Doctors = () => {
               Approve
             </button>
           ) : (
-            <button className="btn btn-danger">Reject</button>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleAccountStatus(record, "rejected")}
+            >
+              Reject
+            </button>
           )}
         </div>
       ),

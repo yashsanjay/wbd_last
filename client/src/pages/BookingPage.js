@@ -87,6 +87,7 @@ const BookingPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+        // alert("Booking Successful")
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -130,12 +131,12 @@ const BookingPage = () => {
                 }}
               />
 
-              <button
+              {/* <button
                 className="btn btn-primary mt-2"
                 onClick={handleAvailability}
               >
                 Check Availability
-              </button>
+              </button> */}
 
               <button className="btn btn-dark mt-2" onClick={handleBooking}>
                 Book Now
