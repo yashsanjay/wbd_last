@@ -40,8 +40,8 @@ const HomePage = () => {
   return (
     <HomePageWrapper>
       <Layout>
-        <h1 className="text-center">Home Page</h1>
-        <Row>
+        <h1 className="text-center" style={{backgroundImage: `url('https://assets-global.website-files.com/5a9423a3f702750001758d4f/62deec2b7c0248d7d39c5d4e_7noNSewmAQpGg-nlXAenZ2R7rpSLSUej9LTN3IWmdIFTPItDB1Hk2UjLAtGiOojEAP4SzCqcalPzF3eOo1PBQMCerpxL3hLvVIxfP14Tb0yNRChl9-Hrv1YIStL1ov9q0fzraKxOF0r7YXRKeQsQ1VA.png')` }}>Home Page</h1>
+        <Row style={{paddingleft:"15px" ,backgroundImage: `url('https://png.pngtree.com/thumb_back/fh260/background/20221215/pngtree-water-color-cloudy-blue-sky-texture-background-image_1492729.jpg')` }}>
           {doctors && doctors.map((doctor) => <DoctorList doctor={doctor} />)}
         </Row>
       </Layout>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./../../components/Layout";
 import axios from "axios";
-import { Table } from "antd";
+import { Table, Input, Space } from "antd";
 import styled from "styled-components";
 
 const HomePageWrapper = styled.div`
@@ -15,6 +15,7 @@ const HomePageWrapper = styled.div`
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   //getUsers
   const getUsers = async () => {
@@ -62,12 +63,23 @@ const Users = () => {
     // },
   ];
 
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
   return (
     <HomePageWrapper>
-    <Layout>
-      <h1 className="text-center m-2">Users List</h1>
-      <Table columns={columns} dataSource={users} />
-    </Layout>
+      <Layout>
+        <h1 className="text-center m-2">Users List</h1>
+        <Space style={{ marginBottom: 16 }}>
+          <Input placeholder="Search by name" onChange={handleSearch} />
+        </Space>
+        <Table columns={columns} dataSource={filteredUsers} />
+      </Layout>
     </HomePageWrapper>
   );
 };

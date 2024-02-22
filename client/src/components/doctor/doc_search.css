@@ -169,7 +169,9 @@ html {
 
 .container-image {
     display: flex;
-
+    background-image: url('https://t4.ftcdn.net/jpg/00/56/20/47/360_F_56204798_Zb7OA4nUEhjTsEEdQJ5Ce91AvAWSbAW1.jpg');
+    background-size: cover; /* This property ensures the background image covers the entire container */
+    background-position: center; /* Center the background image */
     flex-direction: column;
     padding: auto;
     justify-content: center;
