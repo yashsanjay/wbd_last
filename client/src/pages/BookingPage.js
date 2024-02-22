@@ -2,20 +2,19 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { DatePicker, message, TimePicker } from "antd";
-import moment from "moment";
+import { message, DatePicker, TimePicker } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import styled from "styled-components";
+import moment from "moment";
 
 // Define a styled component for HomePage
 const HomePageWrapper = styled.div`
-  /* Styles for the entire HomePage component */
-  max-width: 1350px; /* Set your desired max-width */
-  margin: 0 auto; /* Center the content */
-  overflow: scroll; /* Add both horizontal and vertical scrollbars if needed */
-  height: 200%; /* Ensure the block takes up 100% of available height */
-  padding: 20px; /* Add padding to the content if needed */
+  max-width: 1350px;
+  margin: 0 auto;
+  overflow: scroll;
+  height: 200%;
+  padding: 20px;
 `;
 
 const BookingPage = () => {
@@ -23,10 +22,9 @@ const BookingPage = () => {
   const params = useParams();
   const [doctors, setDoctors] = useState([]);
   const [date, setDate] = useState("");
-  const [time, setTime] = useState();
-  const [isAvailable, setIsAvailable] = useState(false);
+  const [time, setTime] = useState("");
   const dispatch = useDispatch();
-  // login user data
+
   const getUserData = async () => {
     try {
       const res = await axios.post(
@@ -45,13 +43,26 @@ const BookingPage = () => {
       console.log(error);
     }
   };
-  // ============ handle availiblity
+
   const handleAvailability = async () => {
     try {
       dispatch(showLoading());
+      const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
+
+      if (moment(formattedDate, "DD-MM-YYYY").isBefore(moment(), "day")) {
+        dispatch(hideLoading());
+        return message.error("Please select a future date for booking.");
+      }
+
+      const selectedDateTime = moment(`${formattedDate} ${time}`, "DD-MM-YYYY HH:mm");
+      if (selectedDateTime.isBefore(moment())) {
+        dispatch(hideLoading());
+        return message.error("Please select a future time for booking.");
+      }
+
       const res = await axios.post(
         "/api/v1/user/booking-availbility",
-        { doctorId: params.doctorId, date, time },
+        { doctorId: params.doctorId, date: formattedDate, time },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -60,8 +71,6 @@ const BookingPage = () => {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        setIsAvailable(true);
-        console.log(isAvailable);
         message.success(res.data.message);
       } else {
         message.error(res.data.message);
@@ -71,13 +80,26 @@ const BookingPage = () => {
       console.log(error);
     }
   };
-  // =============== booking func
+
   const handleBooking = async () => {
     try {
-      setIsAvailable(true);
-      if (!date && !time) {
-        return alert("Date & Time Required");
+      if (!date || !time) {
+        return message.error("Date & Time are required");
       }
+
+      const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
+
+      if (moment(formattedDate, "DD-MM-YYYY").isBefore(moment(), "day")) {
+        dispatch(hideLoading());
+        return message.error("Please select a future date for booking.");
+      }
+
+      const selectedDateTime = moment(`${formattedDate} ${time}`, "DD-MM-YYYY HH:mm");
+      if (selectedDateTime.isBefore(moment())) {
+        dispatch(hideLoading());
+        return message.error("Please select a future time for booking.");
+      }
+
       dispatch(showLoading());
       const res = await axios.post(
         "/api/v1/user/book-appointment",
@@ -86,8 +108,8 @@ const BookingPage = () => {
           userId: user._id,
           doctorInfo: doctors,
           userInfo: user,
-          date: date,
-          time: time,
+          date: formattedDate,
+          time,
         },
         {
           headers: {
@@ -98,7 +120,6 @@ const BookingPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
-        // alert("Booking Successful")
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -110,54 +131,66 @@ const BookingPage = () => {
     getUserData();
     //eslint-disable-next-line
   }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleAvailability();
+  };
+
   return (
     <HomePageWrapper>
-    <Layout>
-      <h3 >Booking Page</h3>
-      <div className="container m-2">
-        {doctors && (
-          <div>
-            <h4>
-              Dr.{doctors.firstName} {doctors.lastName}
-            </h4>
-            <h4>Fees : {doctors.feesPerCunsaltation}</h4>
-            <h4>
-              Timings : {doctors.timings && doctors.timings[0]} -{" "}
-              {doctors.timings && doctors.timings[1]}{" "}
-            </h4>
-            <div className="d-flex flex-column w-200">
-              <DatePicker
-                aria-required={"true"}
-                className="m-2"
-                format="DD-MM-YYYY"
-                onChange={(value) => {
-                  setDate(moment(value).format("DD-MM-YYYY"));
-                }}
-              />
-              <TimePicker
-                aria-required={"true"}
-                format="HH:mm"
-                className="mt-3"
-                onChange={(value) => {
-                  setTime(moment(value).format("HH:mm"));
-                }}
-              />
+      <Layout>
+        <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundImage: `url('https://www.shutterstock.com/image-illustration/white-blue-mixed-watercolor-painted-260nw-2183688995.jpg')` }}>Booking Page</h3>
 
-              {/* <button
-                className="btn btn-primary mt-2"
-                onClick={handleAvailability}
+        <div className="container m-2">
+          {doctors && (
+            <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
+              <h4>
+                Dr.{doctors.firstName} {doctors.lastName}
+              </h4>
+              <h4>Fees : {doctors.feesPerCunsaltation}</h4>
+              <h4>
+                Timings : {doctors.timings && doctors.timings[0]} -{" "}
+                {doctors.timings && doctors.timings[1]}{" "}
+              </h4>
+
+              <form onSubmit={handleFormSubmit}>
+                <div className="d-flex flex-column w-200">
+                  <DatePicker
+                    aria-required={"true"}
+                    className="m-2"
+                    format="DD-MM-YYYY"
+                    onChange={(value) => {
+                      setDate(moment(value).format("DD-MM-YYYY"));
+                    }}
+                  />
+                  <TimePicker
+                    aria-required={"true"}
+                    format="HH:mm"
+                    className="mt-3"
+                    onChange={(value) => {
+                      setTime(moment(value).format("HH:mm"));
+                    }}
+                  />
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary mt-2"
+                  >
+                    Check Availability
+                  </button>
+                </div>
+              </form>
+              <button
+                className="btn btn-dark mt-2"
+                onClick={handleBooking}
               >
-                Check Availability
-              </button> */}
-
-              <button className="btn btn-dark mt-2" onClick={handleBooking}>
                 Book Now
               </button>
             </div>
-          </div>
-        )}
-      </div>
-    </Layout>
+          )}
+        </div>
+      </Layout>
     </HomePageWrapper>
   );
 };

@@ -1,0 +1,226 @@
+/* PlanSelectionPage.css */
+
+.plan-table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .table-heading {
+    text-align: center;
+  }
+  
+  .text-charcoal-grey {
+    color: #333;
+  }
+  
+  .u-text--bold {
+    font-weight: bold;
+  }
+  
+  .text-large {
+    font-size: 1.5em;
+  }
+  
+  .u-m-b--8 {
+    margin-bottom: 8px;
+  }
+  
+  .u-l-h--24 {
+    line-height: 24px;
+  }
+  
+  .table-body {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .u-border-bottom--paleGrey {
+    border-bottom: 1px solid #f2f2f2;
+  }
+  
+  .text-epsilon {
+    font-size: 0.875em;
+  }
+  
+  .text-left {
+    text-align: left;
+  }
+  
+  .u-p-v--20 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .u-pos--rel {
+    position: relative;
+  }
+  
+  .plan_popular {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .popular-stamp {
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
+    padding-right: 8px;
+    padding-top: 2px;
+    border-radius: 4px;
+    background-color: #8a2be2; /* Purple color */
+  }
+  
+  .icon-ic_star_solid {
+    margin-right: 2px;
+  }
+  
+  .text-theta {
+    color: #fff;
+  }
+  
+  .text-beta {
+    text-align: center;
+    font-size: 1.125em;
+  }
+  
+  .text-gre {
+    color: #4caf50; /* Green color */
+    text-align: center;
+
+  }
+  
+  .text-delta {
+    color: #333;
+  }
+  
+  .u-columns {
+    display: flex;
+    align-items: center;
+  }
+  
+  .width-per--5 {
+    width: 5%;
+  }
+  
+  .u-ten {
+    flex: 1;
+  }
+  
+  .u-align--vt {
+    align-self: flex-start;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  .u-p-t--20 {
+    padding-top: 20px;
+  }
+  
+  .footer-text {
+    text-align: center;
+  }
+  
+  .text-gre.u-text--striked.text-beta {
+    text-decoration: line-through;
+    color: #4caf50;
+  }
+  
+  .text-alpha.u-text--bold {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .text-zeta.u-align--vtt {
+    vertical-align: text-top;
+  }
+  
+  .text-green {
+    color: #4caf50;
+  }
+  
+  .u-m-t--4 {
+    margin-top: 4px;
+  }
+  
+  .u-m-t--8 {
+    margin-top: 8px;
+  }
+  
+  .bg-purple {
+    background-color: #8a2be2; /* Purple color */
+  }
+  
+  .u-text--bold.text-epsilon.text-white {
+    font-weight: bold;
+    font-size: 0.875em;
+    color: #fff;
+  }
+  
+  .u-border-radius--4 {
+    border-radius: 4px;
+  }
+  
+  .width-per--70 {
+    width: 70%;
+  }
+  
+  .u-cur--ptr {
+    cursor: pointer;
+  }
+  
+  .u-p-v--12 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .u-m-t--20 {
+    margin-top: 20px;
+  }
+  
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  
+  
+  
+  /* Media Queries for Responsive Design */
+  @media only screen and (max-width: 1024px) {
+    .width-per--70 {
+      width: 90%;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .width-per--70 {
+      width: 100%;
+    }
+  
+    .u-columns {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .text-beta, .text-epsilon, .text-gre {
+      text-align: center;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .u-m-b--8 {
+      margin-bottom: 4px;
+    }
+  
+    .text-large {
+      font-size: 1.2em;
+    }
+  }
+  

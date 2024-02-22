@@ -1,3 +1,4 @@
+
 import React from "react";
 import "../styles/LayoutStyles.css";
 import { adminMenu, userMenu } from "./../Data/data";
@@ -49,7 +50,7 @@ const Layout = ({ children }) => {
         <div className="layout">
           <div className="sidebar">
             <div className="logo">
-              <h6 className="text-light">DOC APP</h6>
+              <h6 className="text-light">OPIHERBS</h6>
               <hr />
             </div>
             <div className="menu">
