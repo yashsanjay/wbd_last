@@ -1,42 +1,42 @@
-.footer li a:hover {
-    color: gold;
-
-}
-.footer li a {
-
-
-    border-radius: 20px;
-
-}
-
+/* Add this CSS to your footer.css file or in your existing stylesheet */
 .footer {
-    background-color: black;
-    color: aliceblue;
-
-    align-items: center;
-
-
-    color: #FCF8E8;
+    background-color: #333;
+    color: white;
+    padding: 20px;
     display: flex;
     justify-content: space-around;
-
-    width: 100%;
-    ;
-    flex-wrap: wrap;
-    flex-grow: inherit;
-
-}
-
-.footer li a {
-    color: grey;
-}
-
-.footer h4 {
+  }
+  
+  .footer div {
+    flex: 1;
+    margin: 0 20px;
+  }
+  
+  .footer h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .footer li {
+    list-style: none;
+    margin-bottom: 8px;
+  }
+  
+  .footer a {
     color: white;
-}
-
-.footer div {
-    margin: 10px;
-    padding: 20px;
-
-}
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer a:hover svg {
+    color: #007bff; /* Change the color to your preferred link hover color */
+  }
+  
+  .footer svg {
+    margin-right: 8px;
+    color: #ccc;
+  }
+  

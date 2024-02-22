@@ -3,7 +3,7 @@
 /* Add your existing styles here */
 
 .navbar {
-  background-color: 	#10898d;
+  background-color: 	#1dadfb;
   padding: 10px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -43,13 +43,13 @@
 
 .navbar-list a {
   text-decoration: none;
-  color: #333333;
+  color: rgb(33, 15, 104);
   font-weight: bold;
   transition: color 0.3s;
 }
 
 .navbar-list a:hover {
-  color: #007bff;
+  color: #f5be7b;
 }
 
 /* Responsive Styles */

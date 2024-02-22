@@ -7,6 +7,7 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import styled from "styled-components";
+import BookingPageWrapper from "./BookingPageStyles"; 
 
 // Define a styled component for HomePage
 const HomePageWrapper = styled.div`
@@ -113,19 +114,21 @@ const BookingPage = () => {
   return (
     <HomePageWrapper>
     <Layout>
-      <h3 >Booking Page</h3>
+    <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundImage: `url('https://www.shutterstock.com/image-illustration/white-blue-mixed-watercolor-painted-260nw-2183688995.jpg')` }}>Booking Page</h3>
+
+    
       <div className="container m-2">
         {doctors && (
-          <div>
-            <h4>
+          <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Dr.{doctors.firstName} {doctors.lastName}
             </h4>
-            <h4>Fees : {doctors.feesPerCunsaltation}</h4>
-            <h4>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>Fees : {doctors.feesPerCunsaltation}</h4>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Timings : {doctors.timings && doctors.timings[0]} -{" "}
               {doctors.timings && doctors.timings[1]}{" "}
             </h4>
-            <div className="d-flex flex-column w-200">
+            <div className="d-flex flex-column w-200" style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', border: '1px solid #0000' }}>
               <DatePicker
                 aria-required={"true"}
                 className="m-2"
@@ -140,7 +143,7 @@ const BookingPage = () => {
                 className="mt-3"
                 onChange={(value) => {
                   setTime(moment(value).format("HH:mm"));
-                }}
+                }} 
               />
 
               {/* <button

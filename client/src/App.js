@@ -91,9 +91,7 @@ function App() {
           <Route path="/ImageUpload"  element={<ImageUpload/>}/>
           <Route path="/admindashboard"  element={<AdminDashboard/>}/>
           
-        {/* </Routes>
-
-        <Routes> */}
+        
           <Route path="/apply-doctor" element={<ProtectedRoute><ApplyDoctor /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
           <Route path="/admin/doctors" element={<ProtectedRoute><Doctors /></ProtectedRoute>} />
