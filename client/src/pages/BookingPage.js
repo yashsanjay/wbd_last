@@ -287,7 +287,7 @@ const BookingPage = () => {
   };
 
   return (
-    <HomePageWrapper>
+    // <HomePageWrapper>
     <Layout>
       <h3>Booking Page</h3>
       <div className="container m-2">
@@ -334,7 +334,7 @@ const BookingPage = () => {
         )}
       </div>
     </Layout>
-    </HomePageWrapper>
+    // </HomePageWrapper>
   );
 };
 

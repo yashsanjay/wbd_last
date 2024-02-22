@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Layout from "./../components/Layout";
 import moment from "moment";
-import { Table, Spin } from "antd"; // Import Spin from antd for loading indicator
+import { Table, Spin,Button } from "antd"; // Import Spin from antd for loading indicator
+import { Link } from "react-router-dom";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
