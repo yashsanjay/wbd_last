@@ -163,8 +163,13 @@ const BookingPage = () => {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                 />
-                
-                
+
+                <input
+                  type="time"
+                  className="mt-3"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                />
 
                 
               </div>
