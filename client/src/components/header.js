@@ -23,10 +23,10 @@ function Header() {
                 <ul className="navbar-list">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/doctor">Doctors</Link></li>
-                    <li><Link to="/Medicines">Medicines</Link></li>
+                    {/* <li><Link to="/Medicines">Medicines</Link></li> */}
                     {/* <li><Link to="/fsd">First Aid/Emergency</Link></li> */}
                     <li><Link to="/newpremium">Premium</Link></li>
-                    <li><Link to="/ClientOffers">Offers</Link></li>
+                    {/* <li><Link to="/ClientOffers">Offers</Link></li> */}
                     <li><Link to="/home">Sign In</Link></li>
                 </ul>
             </nav>
