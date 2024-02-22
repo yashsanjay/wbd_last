@@ -1,22 +1,44 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout";
 import axios from "axios";
-import { message, Table } from "antd";
+import { message, Table, Input, Button, Space } from "antd";
 import styled from "styled-components";
 
 const HomePageWrapper = styled.div`
-  /* Styles for the entire HomePage component */
-  max-width: 1350px; /* Set your desired max-width */
-  margin: 0 auto; /* Center the content */
-  overflow: scroll; /* Add both horizontal and vertical scrollbars if needed */
-  height: 200%; /* Ensure the block takes up 100% of available height */
-  padding: 20px; /* Add padding to the content if needed */
+  max-width: 1350px;
+  margin: 0 auto;
+  overflow: scroll;
+  height: 100vh; /* Set to 100% of the viewport height */
+  padding: 20px;
+
+  .ant-input {
+    width: 300px; /* Set your desired width for the search input */
+    margin-bottom: 16px;
+  }
+
+  .ant-btn {
+    margin-right: 8px;
+  }
+
+  .actions-container {
+    display: flex;
+  }
+
+  .approve-btn {
+    background-color: #52c41a;
+    border-color: #52c41a;
+  }
+
+  .reject-btn {
+    background-color: #f5222d;
+    border-color: #f5222d;
+  }
 `;
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  // getUsers
   const getDoctors = async () => {
     try {
       const res = await axios.get("/api/v1/admin/getAllDoctors", {
@@ -32,7 +54,6 @@ const Doctors = () => {
     }
   };
 
-  // handle account
   const handleAccountStatus = async (record, status) => {
     try {
       const res = await axios.post(
@@ -46,7 +67,6 @@ const Doctors = () => {
       );
       if (res.data.success) {
         message.success(res.data.message);
-        // Update the status locally
         const updatedDoctors = doctors.map((doctor) =>
           doctor._id === record._id ? { ...doctor, status } : doctor
         );
@@ -57,9 +77,17 @@ const Doctors = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   useEffect(() => {
     getDoctors();
   }, []);
+
+  const filteredDoctors = doctors.filter((doctor) =>
+    `${doctor.firstName} ${doctor.lastName}`.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   const columns = [
     {
@@ -76,28 +104,28 @@ const Doctors = () => {
       dataIndex: "status",
     },
     {
-      title: "phone",
+      title: "Phone",
       dataIndex: "phone",
     },
     {
       title: "Actions",
       dataIndex: "actions",
       render: (text, record) => (
-        <div className="d-flex">
-          {((record.status === "pending")||(record.status==="rejected")) ? (
-            <button
-              className="btn btn-success"
+        <div className="actions-container">
+          {((record.status === "pending") || (record.status === "rejected")) ? (
+            <Button
+              className="approve-btn"
               onClick={() => handleAccountStatus(record, "approved")}
             >
               Approve
-            </button>
+            </Button>
           ) : (
-            <button
-              className="btn btn-danger"
+            <Button
+              className="reject-btn"
               onClick={() => handleAccountStatus(record, "rejected")}
             >
               Reject
-            </button>
+            </Button>
           )}
         </div>
       ),
@@ -106,10 +134,13 @@ const Doctors = () => {
 
   return (
     <HomePageWrapper>
-    <Layout>
-      <h1 className="text-center m-3">All Doctors</h1>
-      <Table columns={columns} dataSource={doctors} />
-    </Layout>
+      <Layout>
+        <h1 className="text-center m-3">All Doctors</h1>
+        <Space>
+          <Input placeholder="Search by name" onChange={handleSearch} />
+        </Space>
+        <Table columns={columns} dataSource={filteredDoctors} />
+      </Layout>
     </HomePageWrapper>
   );
 };

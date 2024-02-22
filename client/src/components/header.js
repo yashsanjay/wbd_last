@@ -13,13 +13,13 @@ function Header() {
         <header>
 
             <nav className="navbar">
-                <li>
+                {/* <li> */}
 
                 <Link to="/">
                     <img src="../../images/logo.jpg" alt="Your Logo" className="navbar-logo" />
                 </Link>
                 <button className="navbar-toggler">&#9776;</button>
-                </li>
+                {/* </li> */}
                 <ul className="navbar-list">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/doctor">Doctors</Link></li>

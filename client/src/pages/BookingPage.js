@@ -138,60 +138,54 @@ const BookingPage = () => {
   };
 
   return (
-    <HomePageWrapper>
-      <Layout>
-        <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundImage: `url('https://www.shutterstock.com/image-illustration/white-blue-mixed-watercolor-painted-260nw-2183688995.jpg')` }}>Booking Page</h3>
+    // <HomePageWrapper>
+    <Layout>
+      <h3>Booking Page</h3>
+      <div className="container m-2">
+        {doctors && (
+          <div>
+            <h4>
+              Dr.{doctors.firstName} {doctors.lastName}
+            </h4>
+            <h4>Fees : {doctors.feesPerCunsaltation}</h4>
+            <h4>
+              Timings : {doctors.timings && doctors.timings[0]} -{" "}
+              {doctors.timings && doctors.timings[1]}{" "}
+            </h4>
+            <form onSubmit={handleFormSubmit}>
+              <div className="d-flex flex-column w-200">
+                <input
+                  type="date"
+                  className="m-2"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+                <input
+                  type="time"
+                  className="mt-3"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                />
 
-        <div className="container m-2">
-          {doctors && (
-            <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
-              <h4>
-                Dr.{doctors.firstName} {doctors.lastName}
-              </h4>
-              <h4>Fees : {doctors.feesPerCunsaltation}</h4>
-              <h4>
-                Timings : {doctors.timings && doctors.timings[0]} -{" "}
-                {doctors.timings && doctors.timings[1]}{" "}
-              </h4>
-
-              <form onSubmit={handleFormSubmit}>
-                <div className="d-flex flex-column w-200">
-                  <DatePicker
-                    aria-required={"true"}
-                    className="m-2"
-                    format="DD-MM-YYYY"
-                    onChange={(value) => {
-                      setDate(moment(value).format("DD-MM-YYYY"));
-                    }}
-                  />
-                  <TimePicker
-                    aria-required={"true"}
-                    format="HH:mm"
-                    className="mt-3"
-                    onChange={(value) => {
-                      setTime(moment(value).format("HH:mm"));
-                    }}
-                  />
-
-                  <button
-                    type="submit"
-                    className="btn btn-primary mt-2"
-                  >
-                    Check Availability
-                  </button>
-                </div>
-              </form>
-              <button
-                className="btn btn-dark mt-2"
-                onClick={handleBooking}
-              >
-                Book Now
-              </button>
-            </div>
-          )}
-        </div>
-      </Layout>
-    </HomePageWrapper>
+                <button
+                  type="submit"
+                  className="btn btn-primary mt-2"
+                >
+                  Check Availability
+                </button>
+              </div>
+            </form>
+            <button
+              className="btn btn-dark mt-2"
+              onClick={handleBooking}
+            >
+              Book Now
+            </button>
+          </div>
+        )}
+      </div>
+    </Layout>
+    // </HomePageWrapper>
   );
 };
 
