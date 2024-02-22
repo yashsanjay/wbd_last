@@ -66,8 +66,36 @@ const changeAccountStatusController = async (req, res) => {
   }
 };
 
+const getUserDetailsController = async (req, res) => {
+  try {
+    const { userId } = req.params; // Assuming you pass the userId as a route parameter
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      message: "User details retrieved successfully",
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while getting user details",
+      error,
+    });
+  }
+};
+
 module.exports = {
   getAllDoctorsController,
   getAllUsersController,
   changeAccountStatusController,
+  getUserDetailsController, // Add this line to export the new controller
 };

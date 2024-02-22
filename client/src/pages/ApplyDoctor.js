@@ -88,8 +88,7 @@ const ApplyDoctor = () => {
             <Form.Item
               label="Profile Photo"
               name="profilephoto"
-              // required
-              // rules={[{ required: true }]}
+              
             >
               <ImageUpload/>
             </Form.Item>

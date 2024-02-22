@@ -45,7 +45,9 @@ import HomePage from "./pages/HomePage";
 import Profile from './pages/doctor/Profile'
 
 import ImageUpload from './pages/ImageUpload';
+import PremiumPlansPage from './components/Premium/PremiumPlansPage';
 import AdminDashboard from './pages/admin/Admin';
+import BookingPayment from './pages/BookingPayments';
 
 
 function App() {
@@ -77,7 +79,7 @@ function App() {
           <Route path="/premium" element={<Premium />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/Admin" element={<AdminPage />} />
+          {/* <Route path="/Admin" element={<AdminPage />} /> */}
           <Route path="/offers" element={<Offers />} />
           <Route path="/PaymentDashboard" element={<PaymentDashboard />} />
           {/* <Route path="/doc_profile" element={<Profile />} /> */}
@@ -85,11 +87,13 @@ function App() {
           <Route path="/greivance" element={<GrievancesAndRedressal />} />
           <Route path="/fakejob" element={<FakeJobAndFrauds />} />
           <Route path="/oops" element={<OopsPage />} />
-          <Route path="/MedHome" element={<Homee />} />
-          <Route path="/Medicines" element={<Medicines cart={cart} setCart={setCart} />} />
-          <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+          {/* <Route path="/MedHome" element={<Homee />} /> */}
+          {/* <Route path="/Medicines" element={<Medicines cart={cart} setCart={setCart} />} /> */}
+          {/* <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} /> */}
           <Route path="/ImageUpload"  element={<ImageUpload/>}/>
+          <Route path="/newpremium" element={<PremiumPlansPage/>}/>
           <Route path="/admindashboard"  element={<AdminDashboard/>}/>
+          <Route path="/bookingPayment"  element={<BookingPayment/>}/>
           
         
           <Route path="/apply-doctor" element={<ProtectedRoute><ApplyDoctor /></ProtectedRoute>} />

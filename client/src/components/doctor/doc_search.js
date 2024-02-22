@@ -12,7 +12,7 @@ function Docsearch() {
     return (
         <>
             <section class="image">
-                        <Link to="/doctor_list">
+                        <Link to="/login">
                 <div class="container-image heading">
                     <h1 id="heading">FIND YOUR NEAREST DOCTOR NOW</h1>
                     
