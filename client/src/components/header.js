@@ -27,7 +27,7 @@ function Header() {
                     {/* <li><Link to="/fsd">First Aid/Emergency</Link></li> */}
                     <li><Link to="/newpremium">Premium</Link></li>
                     {/* <li><Link to="/ClientOffers">Offers</Link></li> */}
-                    <li><Link to="/home">Sign In</Link></li>
+                    {/* <li><Link to="/home">Sign In</Link></li> */}
                 </ul>
             </nav>
         </header>

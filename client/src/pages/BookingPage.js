@@ -167,12 +167,12 @@ const BookingPage = () => {
                   onChange={(e) => setTime(e.target.value)}
                 />
 
-                <button
+                {/* <button
                   type="submit"
                   className="btn btn-primary mt-2"
                 >
                   Check Availability
-                </button>
+                </button> */}
               </div>
             </form>
             <button
