@@ -1,63 +1,73 @@
-// Import React and necessary hooks
-import React, { useState } from 'react';
-import './BookingPayment.css';
 
-// Define the PaymentsPortal component
-function BookingPayment() {
-  // State variables to store form data
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [cvv, setCVV] = useState('');
+// PaymentDashboard.js
 
-  // Function to handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can implement the logic to process the payment
-    // For now, let's just log the form data
-    console.log('Name:', name);
-    console.log('Phone Number:', phoneNumber);
-    console.log('CVV:', cvv);
+import React from 'react';
+import styles from '../components/Premium/PaymentDashboard.module.css'; // Import the CSS module
+import { useNavigate } from 'react-router-dom';
+
+const BookingPayment = () => {
+  const navigate=useNavigate();
+  const validateForm = () => {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var CVV = document.getElementById("CVV").value;
+
+    // Check if all fields are filled out
+    if (name === "" || email === "" || phone === "" || CVV === "") {
+      alert("Please fill out all fields.");
+      return false;
+    }
+
+    // Check if phone number is valid
+    if (!(/^\d{10}$/.test(phone))) {
+      alert("Please enter a valid phone number.");
+      return false;
+    }
+    if (!(/^\d{3}$/.test(CVV))) {
+      alert("Please enter a valid 3 digit CVV number.");
+      return false;
+    }
+    navigate('/user');
+
+    return true;
   };
-
   return (
-    <div className="booking-payment-container">
-      <h2>Payments Portal</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+    <div className={styles.container}>
+      <h1 className={styles.maint}></h1>
+      <div className={`${styles.section} animated bounceInLeft`}>
+        <div className={styles.contact}>
+          <h3>Payment Dashboard</h3>
+          <form action="http://localhost:3000/"  onSubmit={validateForm}>
+            <p>
+              <label htmlFor="name">Name</label>
+              <input type="text" name="name" id="name" required />
+            </p>
+            <p>
+              <label htmlFor="CVV">CVV</label>
+              <input type="password" name="CVV" id="CVV" required />
+            </p>
+            <p>
+              <label htmlFor="email">Email Address</label>
+              <input type="email" name="email" id="email" required />
+            </p>
+            <p>
+              <label htmlFor="phone">Phone Number</label>
+              <input type="text" name="phone" id="phone" required />
+            </p>
+            {/* <select name="cars" id="cars" style={{ fontSize: '1.5rem' }}>
+              <option value="999">₹999</option>
+              <option value="3499">₹3499</option>
+              <option value="9999">₹9999</option>
+            </select> */}
+            <p className={styles.full}>
+              <button type="submit">Click here to pay</button>
+            </p>
+          </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="cvv">CVV:</label>
-          <input
-            type="text"
-            id="cvv"
-            value={cvv}
-            onChange={(e) => setCVV(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Pay Now</button>
-      </form>
+      </div>
     </div>
   );
-}
+};
 
-// Export the PaymentsPortal component
 export default BookingPayment;
