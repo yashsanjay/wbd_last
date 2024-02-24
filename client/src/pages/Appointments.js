@@ -92,7 +92,7 @@ const Appointments = () => {
   return (
     <Layout>
     <h1>Appointments List</h1>
-    <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", height: "100vh" ,minWidth:"1000px"}}>
+    <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", height: "75vh" ,minWidth:"1000px"}}>
       {loadingUserDetails ? ( // Show loading indicator if user details are still loading
         <Spin size="large" />
       ) : (

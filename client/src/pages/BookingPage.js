@@ -8,13 +8,16 @@ import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import styled from "styled-components";
 import moment from "moment";
 
+import BookingPageWrapper from "./BookingPageStyles"; 
+
 // Define a styled component for HomePage
 const HomePageWrapper = styled.div`
-  max-width: 1350px;
-  margin: 0 auto;
-  overflow: scroll;
-  height: 200%;
-  padding: 20px;
+  /* Styles for the entire HomePage component */
+  max-width: 1350px; /* Set your desired max-width */
+  margin: 0 auto; /* Center the content */
+  overflow: scroll; /* Add both horizontal and vertical scrollbars if needed */
+  height: 200%; /* Ensure the block takes up 100% of available height */
+  padding: 20px; /* Add padding to the content if needed */
 `;
 
 const BookingPage = () => {
@@ -140,26 +143,27 @@ const BookingPage = () => {
   return (
     // <HomePageWrapper>
     <Layout>
-      <h3>Booking Page</h3>
+      <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundImage: `url('https://www.shutterstock.com/image-illustration/white-blue-mixed-watercolor-painted-260nw-2183688995.jpg')` }}>Booking Page</h3>
       <div className="container m-2">
         {doctors && (
-          <div>
-            <h4>
+          <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
+         <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Dr.{doctors.firstName} {doctors.lastName}
             </h4>
-            <h4>Fees : {doctors.feesPerCunsaltation}</h4>
-            <h4>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>Fees : {doctors.feesPerCunsaltation}</h4>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Timings : {doctors.timings && doctors.timings[0]} -{" "}
               {doctors.timings && doctors.timings[1]}{" "}
             </h4>
             <form onSubmit={handleFormSubmit}>
-              <div className="d-flex flex-column w-200">
+            <div className="d-flex flex-column w-200" style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', border: '1px solid #0000' }}>
                 <input
                   type="date"
                   className="m-2"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                 />
+
                 <input
                   type="time"
                   className="mt-3"
@@ -167,17 +171,13 @@ const BookingPage = () => {
                   onChange={(e) => setTime(e.target.value)}
                 />
 
-                {/* <button
-                  type="submit"
-                  className="btn btn-primary mt-2"
-                >
-                  Check Availability
-                </button> */}
+                
               </div>
             </form>
             <button
               className="btn btn-dark mt-2"
               onClick={handleBooking}
+              style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', width:'300px' , border: '1px solid #0000' }}
             >
               Book Now
             </button>
