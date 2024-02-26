@@ -83,6 +83,25 @@ const authController = async (req, res) => {
   }
 };
 
+//get user info
+const getUserInfoController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ userId: req.body.userId });
+    res.status(200).send({
+      success: true,
+      message: "user data fetch success",
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error in Fetching user Details",
+    });
+  }
+};
+
 // APpply DOctor CTRL
 const applyDoctorController = async (req, res) => {
   try {

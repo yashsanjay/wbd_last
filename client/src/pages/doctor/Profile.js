@@ -123,7 +123,7 @@ const Profile = () => {
           </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item
-                label="Phone No"
+                label="Phone"
                 name="phone"
                 required
                 rules={[{ required: true }]}

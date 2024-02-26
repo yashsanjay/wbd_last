@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./../components/Layout";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import axios from "axios";
 import moment from "moment";
@@ -21,9 +21,10 @@ const HomePageWrapper = styled.div`
 
 const ApplyDoctor = () => {
   const { user } = useSelector((state) => state.user);
-
+  const [User, setUser] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
   //handle form
   const handleFinish = async (values) => {
     try {
@@ -57,17 +58,45 @@ const ApplyDoctor = () => {
       message.error("Somthing Went Wrrong ");
     }
   };
+
+  const getUserInfo = async () => {
+    try {
+      const res = await axios.post(
+        "/api/v1/user/getUserInfo",
+        { userId: params.id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        setUser(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    //eslint-disable-next-line
+  }, []);
   return (
   <HomePageWrapper>
     <Layout>
       <h1 className="text-center">Apply Doctor</h1>
-      <Form layout="vertical" onFinish={handleFinish} className="m-3">
+      {User &&(
+      <Form layout="vertical" onFinish={handleFinish} className="m-3" initialValues={{
+        ...User,
+        
+      }}>
         <h4 className="">Personal Details : </h4>
         <Row gutter={20}>
           <Col xs={24} md={24} lg={8}>
             <Form.Item
-              label="First Name"
-              name="firstName"
+              label="Name"
+              name="name"
               required
               rules={[{ required: true }]}
             >
@@ -95,7 +124,7 @@ const ApplyDoctor = () => {
           </Col>
           <Col xs={24} md={24} lg={8}>
             <Form.Item
-              label="Phone No"
+              label="Phone"
               name="phone"
               required
               rules={[{ required: true }]}
@@ -120,8 +149,8 @@ const ApplyDoctor = () => {
           </Col>
           <Col xs={24} md={24} lg={8}>
             <Form.Item
-              label="Address"
-              name="address"
+              label="District"
+              name="district"
               required
               rules={[{ required: true }]}
             >
@@ -174,6 +203,7 @@ const ApplyDoctor = () => {
           </Col>
         </Row>
       </Form>
+      )}
     </Layout>
   </HomePageWrapper>
   );
