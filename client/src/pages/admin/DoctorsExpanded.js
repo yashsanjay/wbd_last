@@ -62,7 +62,7 @@ const DoctorsExpanded = () => {
                 <h4>Professional Details:</h4>
                 <p>Specialization: {doctorDetails.specialization}</p>
                 <p>Experience: {doctorDetails.experience}</p>
-                <p>Fees Per Consultation: {doctorDetails.feesPerConsultation}</p>
+                <p>Fees Per Consultation: {doctorDetails.feesPerCunsaltation}</p>
                 <p>Timings: {doctorDetails.timings.join(" - ")}</p>
               </Col>
               <Col xs={24} md={24} lg={8}>
