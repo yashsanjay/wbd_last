@@ -48,6 +48,7 @@ import ImageUpload from './pages/ImageUpload';
 import PremiumPlansPage from './components/Premium/PremiumPlansPage';
 import AdminDashboard from './pages/admin/Admin';
 import BookingPayment from './pages/BookingPayments';
+import DoctorsExpanded from './pages/admin/DoctorsExpanded';
 
 
 function App() {
@@ -94,7 +95,9 @@ function App() {
           <Route path="/newpremium" element={<PremiumPlansPage/>}/>
           <Route path="/admindashboard"  element={<AdminDashboard/>}/>
           <Route path="/bookingPayment"  element={<BookingPayment/>}/>
-          
+          {/* <Route path="/doctorsexpanded"  element={<DoctorsExpanded/>}/> */}
+          <Route path="/doctorsexpanded/:id" element={<DoctorsExpanded />} />
+
         
           <Route path="/apply-doctor" element={<ProtectedRoute><ApplyDoctor /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />

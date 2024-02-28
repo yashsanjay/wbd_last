@@ -1,4 +1,6 @@
+// Import necessary dependencies
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Layout from "./../../components/Layout";
 import axios from "axios";
 import { message, Table, Input, Button, Space } from "antd";
@@ -36,6 +38,7 @@ const HomePageWrapper = styled.div`
 `;
 
 const Doctors = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [doctors, setDoctors] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -89,6 +92,11 @@ const Doctors = () => {
     `${doctor.firstName} ${doctor.lastName}`.toLowerCase().includes(searchValue.toLowerCase())
   );
 
+  const handleRedirectToExpanded = (doctorId) => {
+    navigate(`/doctorsexpanded/${doctorId}`); // Pass the doctorId as part of the URL
+};
+
+
   const columns = [
     {
       title: "Name",
@@ -127,6 +135,9 @@ const Doctors = () => {
               Reject
             </Button>
           )}
+          <Button onClick={() => handleRedirectToExpanded(record._id)}>
+            View Details
+          </Button>
         </div>
       ),
     },
