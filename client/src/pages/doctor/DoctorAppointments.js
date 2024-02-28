@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout";
 import axios from "axios";
 import moment from "moment";
-import { message, Table, Spin } from "antd";
+import { message, Table, Spin, Input } from "antd";
+
+const { Search } = Input;
 
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loadingUserDetails, setLoadingUserDetails] = useState(false);
   const [userDetails, setUserDetails] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
 
   const getAppointments = async () => {
     try {
@@ -50,6 +54,15 @@ const DoctorAppointments = () => {
     getAppointments();
   }, []);
 
+  useEffect(() => {
+    // Filter appointments based on search term
+    const filtered = appointments.filter(appointment => {
+      const userDetail = userDetails[appointment.userId];
+      return userDetail && userDetail.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setFilteredAppointments(filtered);
+  }, [searchTerm, appointments, userDetails]);
+
   const handleStatus = async (record, status) => {
     try {
       const res = await axios.post(
@@ -69,6 +82,10 @@ const DoctorAppointments = () => {
       console.log(error);
       message.error("Something Went Wrong");
     }
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   const columns = [
@@ -124,13 +141,20 @@ const DoctorAppointments = () => {
     <Layout>
       <div style={{ maxHeight: "70vh", overflowY: "auto" }}>
         <h1>Appointments Lists</h1>
-        <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", minWidth: "100px", overflowY: "hidden" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+          <Search
+            placeholder="Search by name"
+            allowClear
+            onChange={handleSearch} // Use handleSearch function directly
+            style={{ width: 200 }}
+          />
           {loadingUserDetails ? (
             <Spin size="large" />
           ) : (
-            <Table columns={columns} dataSource={appointments} style={{ minWidth: "75vw" }} />
+            <></>
           )}
         </div>
+        <Table columns={columns} dataSource={filteredAppointments} style={{ minWidth: "75vw" }} />
       </div>
     </Layout>
   );
