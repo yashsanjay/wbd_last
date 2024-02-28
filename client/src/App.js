@@ -49,6 +49,7 @@ import PremiumPlansPage from './components/Premium/PremiumPlansPage';
 import AdminDashboard from './pages/admin/Admin';
 import BookingPayment from './pages/BookingPayments';
 import DoctorsExpanded from './pages/admin/DoctorsExpanded';
+import AdminAppointments from './pages/admin/AdminAppointments';
 
 
 function App() {
@@ -97,6 +98,7 @@ function App() {
           <Route path="/bookingPayment"  element={<BookingPayment/>}/>
           {/* <Route path="/doctorsexpanded"  element={<DoctorsExpanded/>}/> */}
           <Route path="/doctorsexpanded/:id" element={<DoctorsExpanded />} />
+          <Route path="/AdminAppointments" element={<ProtectedRoute><AdminAppointments/></ProtectedRoute>} />
 
         
           <Route path="/apply-doctor" element={<ProtectedRoute><ApplyDoctor /></ProtectedRoute>} />
