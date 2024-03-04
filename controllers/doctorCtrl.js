@@ -111,6 +111,33 @@ const getUserInfoController = async (req, res) => {
   }
 };
 
+//get all appointments
+// const getAllAppointmentsController = async (req, res) => {
+//   try {
+//     // Assuming req.user.id contains the ID of the current user
+//     const currentUserID = req.user.id;
+
+//     // Fetch appointments where status is "approved" and doctor's ID matches the current user's ID
+//     const appointments = await appointmentModel.find({ status: "approved", doc_id: currentUserID });
+
+//     res.status(200).send({
+//       success: true,
+//       message: "Appointments List Fetched Successfully",
+//       data: appointments,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       success: false,
+//       error,
+//       message: "Error While Fetching Appointments",
+//     });
+//   }
+// };
+
+// module.exports = getAllAppointmentsController;
+
+
 const updateStatusController = async (req, res) => {
   try {
     const { appointmentsId, status } = req.body;
@@ -146,5 +173,6 @@ module.exports = {
   getDoctorByIdController,
   doctorAppointmentsController,
   updateStatusController,
-  getUserInfoController
+  getUserInfoController,
+  
 };

@@ -1,3 +1,4 @@
+// Import necessary modules
 const express = require("express");
 const colors = require("colors");
 const morgan = require("morgan");
@@ -5,6 +6,10 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const multer = require('multer');
 const path = require('path');
+const Appointment = require("./models/appointmentModel"); // Adjust the path
+const doctorModel = require("./models/doctorModel");
+const userModel = require("./models/userModels");
+const axios = require("axios");
 
 //dotenv config
 dotenv.config();
@@ -44,6 +49,56 @@ app.use("/api/v1/user", require("./routes/userRoutes"));
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
 
+app.get('/api/v1/admin/getAllAppointments', async (req, res) => {
+  try {
+    const allAppointments = await Appointment.find().lean();
+    const appointmentsWithData = await Promise.all(
+      allAppointments.map(async (appointment) => {
+        const doctor = await doctorModel.findOne({ _id: appointment.doctorId });
+
+        // Update doctor statistics
+        if (doctor) {
+          doctor.totalAppointments += 1;
+          doctor.weeklyAppointments += 1;  // You can update this logic based on your requirements
+          doctor.monthlyAppointments += 1; // You can update this logic based on your requirements
+          await doctor.save();
+        }
+
+        const user = await userModel.findOne({ _id: appointment.userId }).lean();
+
+        return {
+          ...appointment,
+          doctorName: doctor ? `${doctor.firstName} ${doctor.lastName}` : 'Unknown Doctor',
+          patientName: user ? user.name : 'Unknown User',
+        };
+      })
+    );
+
+    res.json({ success: true, data: appointmentsWithData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error fetching appointments' });
+  }
+});
+
+app.get('/api/v1/admin/getDoctorStatistics', async (req, res) => {
+  try {
+    const doctors = await doctorModel.find().lean();
+    
+    const doctorStatistics = doctors.map(doctor => ({
+      doctorName: `${doctor.firstName} ${doctor.lastName}`,
+      totalAppointments: doctor.totalAppointments, // Add this field to your doctor model
+      weeklyAppointments: doctor.weeklyAppointments, // Add this field to your doctor model
+      monthlyAppointments: doctor.monthlyAppointments, // Add this field to your doctor model
+    }));
+
+    res.json({ success: true, data: doctorStatistics });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error fetching doctor statistics' });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -52,6 +107,7 @@ app.use((err, req, res, next) => {
 
 //port
 const port = process.env.PORT || 8080;
+
 //listen port
 app.listen(port, () => {
   console.log(
@@ -59,3 +115,67 @@ app.listen(port, () => {
       .bgCyan.white
   );
 });
+
+// const express = require("express");
+// const colors = require("colors");
+// const morgan = require("morgan");
+// const dotenv = require("dotenv");
+// const connectDB = require("./config/db");
+// const multer = require('multer');
+// const path = require('path');
+
+// //dotenv config
+// dotenv.config();
+
+// //mongodb connection
+// connectDB();
+
+// //rest object
+// const app = express();
+
+// const storage = multer.diskStorage({
+//   destination: 'uploads/',
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//   },
+// });
+
+// const upload = multer({ storage });
+
+// app.use('/uploads', express.static('uploads'));
+
+// app.post('/upload', upload.single('profileImage'), (req, res) => {
+//   if (!req.file) {
+//     return res.status(400).send('No file uploaded.');
+//   }
+
+//   const imageUrl = `/uploads/${req.file.filename}`;
+//   res.json({ imageUrl });
+// });
+
+// //middlewares
+// app.use(express.json());
+// app.use(morgan("dev"));
+
+// //routes
+// app.use("/api/v1/user", require("./routes/userRoutes"));
+// app.use("/api/v1/admin", require("./routes/adminRoutes"));
+// app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
+
+// // Error handling middleware
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).send('Something went wrong!');
+// });
+
+// //port
+// const port = process.env.PORT || 8080;
+// //listen port
+// app.listen(port, () => {
+//   console.log(
+//     `Server Running in ${process.env.NODE_MODE} Mode on port ${process.env.PORT}`
+//       .bgCyan.white
+//   );
+// });
+
+
