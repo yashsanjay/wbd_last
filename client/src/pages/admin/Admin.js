@@ -47,8 +47,8 @@ const AdminDashboard = () => {
         <h1 className="text-center m-3">Admin Dashboard</h1>
         <div className="stats-container">
           <div className="stats-item doctors-box">
-            <h2>Total Doctors</h2>
-            <p>{doctorsCount}</p>
+            <h2 style={{ backgroundColor: "#048ba6", color:"#ffffff" }}>Total Doctors</h2>
+            <p style={{ backgroundColor: "#048ba6", color:"#ffffff" }}>{doctorsCount}</p>
           </div>
           <div className="stats-item patients-box">
             <h2>Total Patients</h2>

@@ -75,8 +75,9 @@ const Users = () => {
     <HomePageWrapper>
       <Layout>
         <h1 className="text-center m-2">Users List</h1>
-        <Space style={{ marginBottom: 16 }}>
-          <Input placeholder="Search by name" onChange={handleSearch} />
+        <Space style={{ marginBottom: 16, paddingLeft: "50px" }}>
+        <Input placeholder="Search by name" onChange={handleSearch} style={{ textAlign: "center" }} />
+
         </Space>
         <Table columns={columns} dataSource={filteredUsers} />
       </Layout>

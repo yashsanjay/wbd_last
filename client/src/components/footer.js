@@ -8,7 +8,7 @@ import './footer.css'
 function Footer() {
     return (
         <footer>
-            <div className="footer" style={{ backgroundColor: 'rgb(33, 15, 104)' }}>
+            <div className="footer" style={{ backgroundColor: '#005b6d' }}>
                 <div>
                     <h4>Know us</h4>
                     <ul>

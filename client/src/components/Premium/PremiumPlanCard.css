@@ -70,7 +70,7 @@
     padding-right: 8px;
     padding-top: 2px;
     border-radius: 4px;
-    background-color: #8a2be2; /* Purple color */
+    background-color: #005b6d; /* Purple color */
   }
   
   .icon-ic_star_solid {
@@ -87,7 +87,7 @@
   }
   
   .text-gre {
-    color: #4caf50; /* Green color */
+    color: #04a7c8; /* Green color */
     text-align: center;
 
   }
@@ -127,7 +127,7 @@
   
   .text-gre.u-text--striked.text-beta {
     text-decoration: line-through;
-    color: #4caf50;
+    color: #04a7c8;
   }
   
   .text-alpha.u-text--bold {
@@ -140,7 +140,7 @@
   }
   
   .text-green {
-    color: #4caf50;
+    color: #04a7c8;
   }
   
   .u-m-t--4 {
@@ -152,7 +152,7 @@
   }
   
   .bg-purple {
-    background-color: #8a2be2; /* Purple color */
+    background-color: #005b6d; /* Purple color */
   }
   
   .u-text--bold.text-epsilon.text-white {

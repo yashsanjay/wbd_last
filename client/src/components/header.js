@@ -16,7 +16,7 @@ function Header() {
                 {/* <li> */}
 
                 <Link to="/">
-                    <img src="../../images/logo.jpg" alt="Your Logo" className="navbar-logo" />
+                    <img src="../../images/logo1.png" alt="Your Logo" className="navbar-logo" />
                 </Link>
                 <button className="navbar-toggler">&#9776;</button>
                 {/* </li> */}

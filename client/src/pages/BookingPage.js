@@ -143,7 +143,7 @@ const BookingPage = () => {
   return (
     // <HomePageWrapper>
     <Layout>
-      <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundImage: `url('https://www.shutterstock.com/image-illustration/white-blue-mixed-watercolor-painted-260nw-2183688995.jpg')` }}>Booking Page</h3>
+      <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundColor:"#005b6d", color:"#ffffff" }}>Booking Page</h3>
       <div className="container m-2">
         {doctors && (
           <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
