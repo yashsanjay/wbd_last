@@ -31,6 +31,10 @@ const appointmentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      default: "None", // Set a default value for the description field
+    },
   },
   { timestamps: true }
 );
