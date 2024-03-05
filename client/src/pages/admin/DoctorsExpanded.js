@@ -6,13 +6,13 @@ import axios from "axios";
 import styled from "styled-components";
 import './DoctorsExpanded.css'
 
-// const DoctorsExpandedWrapper = styled.div`
-//   max-width: 1350px;
-//   margin: 0 auto;
-//   overflow: scroll;
-//   height: 200%;
-//   padding: 20px;
-// `;
+const DoctorsExpandedWrapper = styled.div`
+  max-width: 1350px;
+  margin: 0 auto;
+  overflow: scroll;
+  height: 200%;
+  padding: 50px;
+`;
 
 const DoctorsExpanded = () => {
   const [doctorDetails, setDoctorDetails] = useState(null);
@@ -44,7 +44,7 @@ const DoctorsExpanded = () => {
   }, []);
 
   return (
-    // <DoctorsExpandedWrapper>
+    <DoctorsExpandedWrapper>
       <Layout>
         {doctorDetails && (
           <>
@@ -73,7 +73,7 @@ const DoctorsExpanded = () => {
           </>
         )}
       </Layout>
-    // </DoctorsExpandedWrapper>
+    </DoctorsExpandedWrapper>
   );
 };
 
