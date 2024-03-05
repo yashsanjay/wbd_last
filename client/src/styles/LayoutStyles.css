@@ -5,6 +5,7 @@
 
 .layout {
   display: flex;
+  height: max-content;
 }
 
 
@@ -12,7 +13,7 @@
   min-height: 100%;
   width: 320px;
   border-radius: 5px;
-  background-color: rgb(33, 15, 104);
+  background-color: #005b6d;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added a softer shadow */
   margin-right: 20px;
   color: white;
@@ -73,7 +74,7 @@
 }
 
 .active {
-  background-color: rgb(111, 188, 239);
+  background-color: #4fa4b5;
   padding: 10px;
 }
 

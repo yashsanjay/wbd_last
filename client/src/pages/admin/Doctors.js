@@ -146,9 +146,9 @@ const Doctors = () => {
   return (
     <HomePageWrapper>
       <Layout>
-        <h1 className="text-center m-3">All Doctors</h1>
-        <Space>
-          <Input placeholder="Search by name" onChange={handleSearch} />
+        <h1 className="text-center m-3" >All Doctors</h1>
+        <Space style={{ paddingLeft:"50px" }}>
+          <Input placeholder="Search by name" onChange={handleSearch} style={{ textAlign: "center" }} />
         </Space>
         <Table columns={columns} dataSource={filteredDoctors} />
       </Layout>

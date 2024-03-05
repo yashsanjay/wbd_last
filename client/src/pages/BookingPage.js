@@ -21,6 +21,8 @@ const HomePageWrapper = styled.div`
 `;
 
 const BookingPage = () => {
+  const [description, setDescription] = useState("");
+
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [doctors, setDoctors] = useState([]);
@@ -86,23 +88,23 @@ const BookingPage = () => {
 
   const handleBooking = async () => {
     try {
-      if (!date || !time) {
-        return message.error("Date & Time are required");
+      if (!date || !time || !description) {
+        return message.error("Date, Time, and Description are required");
       }
-
+  
       const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
-
+  
       if (moment(formattedDate, "DD-MM-YYYY").isBefore(moment(), "day")) {
         dispatch(hideLoading());
         return message.error("Please select a future date for booking.");
       }
-
+  
       const selectedDateTime = moment(`${formattedDate} ${time}`, "DD-MM-YYYY HH:mm");
       if (selectedDateTime.isBefore(moment())) {
         dispatch(hideLoading());
         return message.error("Please select a future time for booking.");
       }
-
+  
       dispatch(showLoading());
       const res = await axios.post(
         "/api/v1/user/book-appointment",
@@ -113,6 +115,7 @@ const BookingPage = () => {
           userInfo: user,
           date: formattedDate,
           time,
+          description, // Include description in the request body
         },
         {
           headers: {
@@ -129,6 +132,7 @@ const BookingPage = () => {
       console.log(error);
     }
   };
+  
 
   useEffect(() => {
     getUserData();
@@ -143,14 +147,14 @@ const BookingPage = () => {
   return (
     // <HomePageWrapper>
     <Layout>
-      <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundImage: `url('https://www.shutterstock.com/image-illustration/white-blue-mixed-watercolor-painted-260nw-2183688995.jpg')` }}>Booking Page</h3>
-      <div className="container m-2">
+      <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundColor:"#005b6d", color:"#ffffff" }}>Booking Page</h3>
+      <div className="container m-2" style={{ height:'500px' }} >
         {doctors && (
           <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
          <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Dr.{doctors.firstName} {doctors.lastName}
             </h4>
-            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>Fees : {doctors.feesPerCunsaltation}</h4>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', marginLeft: '20px', border: '1px solid #0000' }}>Fees : {doctors.feesPerCunsaltation}</h4>
             <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Timings : {doctors.timings && doctors.timings[0]} -{" "}
               {doctors.timings && doctors.timings[1]}{" "}
@@ -171,6 +175,12 @@ const BookingPage = () => {
                   onChange={(e) => setTime(e.target.value)}
                 />
 
+                <textarea
+                  placeholder="Describe your symptoms..."
+                  className="mt-3"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
                 
               </div>
             </form>

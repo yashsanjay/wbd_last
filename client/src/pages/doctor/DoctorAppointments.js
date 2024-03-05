@@ -50,6 +50,30 @@ const DoctorAppointments = () => {
     }
   };
 
+  // Fetch description for each appointment
+  const fetchDescriptions = async () => {
+    try {
+      const descriptions = await Promise.all(
+        appointments.map(async (appointment) => {
+          const res = await axios.get(`/api/v1/user/${appointment.userId}/description`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          return { id: appointment._id, description: res.data.data.description };
+        })
+      );
+      // Merge descriptions with appointments
+      setFilteredAppointments(prevAppointments =>
+        prevAppointments.map(appointment =>
+          Object.assign(appointment, descriptions.find(desc => desc.id === appointment._id))
+        )
+      );
+    } catch (error) {
+      console.error("Error fetching descriptions: ", error);
+    }
+  };
+
   useEffect(() => {
     getAppointments();
   }, []);
@@ -62,6 +86,12 @@ const DoctorAppointments = () => {
     });
     setFilteredAppointments(filtered);
   }, [searchTerm, appointments, userDetails]);
+
+  useEffect(() => {
+    if (appointments.length > 0) {
+      fetchDescriptions();
+    }
+  }, [appointments]);
 
   const handleStatus = async (record, status) => {
     try {
@@ -106,6 +136,10 @@ const DoctorAppointments = () => {
           {moment(record.time).format("HH:mm")}
         </span>
       ),
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
     },
     {
       title: "Status",
