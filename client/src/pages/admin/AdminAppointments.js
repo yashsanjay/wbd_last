@@ -1,10 +1,9 @@
-// AdminAppointments.js
-
 import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout";
 import axios from "axios";
-import { Table, Input, Space, Button } from "antd";
+import { Table, Input, Space } from "antd";
 import styled from "styled-components";
+
 const AppointmentsPageWrapper = styled.div`
   max-width: 1350px;
   margin: 0 auto;
@@ -22,11 +21,11 @@ const AppointmentsPageWrapper = styled.div`
   }
 `;
 
-
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [doctorSearchValue, setDoctorSearchValue] = useState('');
   const [patientSearchValue, setPatientSearchValue] = useState('');
+  const [doctorPatientCounts, setDoctorPatientCounts] = useState({});
 
   const getAppointments = async () => {
     try {
@@ -43,6 +42,22 @@ const AdminAppointments = () => {
     }
   };
 
+  const calculateDoctorPatientCounts = () => {
+    const doctorCounts = {};
+
+    appointments.forEach((appointment) => {
+      const doctorId = appointment.doctorId; // Assuming you have a doctorId in your appointment data
+
+      if (doctorCounts[doctorId]) {
+        doctorCounts[doctorId]++;
+      } else {
+        doctorCounts[doctorId] = 1;
+      }
+    });
+
+    setDoctorPatientCounts(doctorCounts);
+  };
+
   const handleDoctorSearch = (e) => {
     setDoctorSearchValue(e.target.value);
   };
@@ -54,6 +69,10 @@ const AdminAppointments = () => {
   useEffect(() => {
     getAppointments();
   }, []);
+
+  useEffect(() => {
+    calculateDoctorPatientCounts();
+  }, [appointments]);
 
   const filteredAppointments = appointments
     .filter((appointment) =>
@@ -76,19 +95,23 @@ const AdminAppointments = () => {
       dataIndex: "date",
       render: (text) => new Date(text).toLocaleDateString(),
     },
+    {
+      title: "Number of Patients",
+      dataIndex: "doctorId", // Assuming you have a doctorId in your appointment data
+      render: (doctorId) => doctorPatientCounts[doctorId] || 0,
+    },
     // Add more columns based on your appointment data
   ];
 
   return (
     <AppointmentsPageWrapper>
       <Layout>
-      <h1 className="text-center m-3">All Appointments</h1>
-  <Space style={{ marginBottom: 16, paddingLeft: "20px" }}>
-    <Input placeholder="Search by doctor" onChange={handleDoctorSearch} />
-    <Input placeholder="Search by patient" onChange={handlePatientSearch} />
-  </Space>
-          
-        
+        <h1 className="text-center m-3">All Appointments</h1>
+        <Space style={{ marginBottom: 16, paddingLeft: "20px" }}>
+          <Input placeholder="Search by doctor" onChange={handleDoctorSearch} />
+          <Input placeholder="Search by patient" onChange={handlePatientSearch} />
+        </Space>
+
         <div className="table-container">
           <Table columns={columns} dataSource={filteredAppointments} />
         </div>
