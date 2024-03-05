@@ -22,6 +22,7 @@ const AppointmentsPageWrapper = styled.div`
   }
 `;
 
+
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [doctorSearchValue, setDoctorSearchValue] = useState('');
@@ -41,7 +42,7 @@ const AdminAppointments = () => {
       console.log(error);
     }
   };
-  
+
   const handleDoctorSearch = (e) => {
     setDoctorSearchValue(e.target.value);
   };
@@ -54,10 +55,12 @@ const AdminAppointments = () => {
     getAppointments();
   }, []);
 
-  const filteredAppointments = appointments.filter((appointment) =>
-    `${appointment.doctorName}`.toLowerCase().includes(doctorSearchValue.toLowerCase()) &&
-    `${appointment.patientName}`.toLowerCase().includes(patientSearchValue.toLowerCase())
-  );
+  const filteredAppointments = appointments
+    .filter((appointment) =>
+      `${appointment.doctorName}`.toLowerCase().includes(doctorSearchValue.toLowerCase()) &&
+      `${appointment.patientName}`.toLowerCase().includes(patientSearchValue.toLowerCase())
+    )
+    .sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date in descending order
 
   const columns = [
     {
@@ -71,6 +74,7 @@ const AdminAppointments = () => {
     {
       title: "Date",
       dataIndex: "date",
+      render: (text) => new Date(text).toLocaleDateString(),
     },
     // Add more columns based on your appointment data
   ];
@@ -79,11 +83,14 @@ const AdminAppointments = () => {
     <AppointmentsPageWrapper>
       <Layout>
         <h1 className="text-center m-3">All Appointments</h1>
-        <Space>
+        <Space style={{ marginBottom: 16, paddingLeft: "50px" }}>
           <Input placeholder="Search by doctor" onChange={handleDoctorSearch} />
+          </Space>
+          <Space style={{ marginBottom: 16, paddingLeft: "270px" }}>
           <Input placeholder="Search by patient" onChange={handlePatientSearch} />
+          </Space>
           
-        </Space>
+        
         <div className="table-container">
           <Table columns={columns} dataSource={filteredAppointments} />
         </div>
