@@ -69,18 +69,18 @@ app.get('/api/v1/admin/getAllAppointments', async (req, res) => {
         const doctor = await doctorModel.findOne({ _id: appointment.doctorId });
 
         // Update doctor statistics
-        if (doctor) {
-          doctor.totalAppointments += 1;
-          doctor.weeklyAppointments += 1;  // You can update this logic based on your requirements
-          doctor.monthlyAppointments += 1; // You can update this logic based on your requirements
-          await doctor.save();
-        }
+        // if (doctor) {
+        //   doctor.totalAppointments += 1;
+        //   doctor.weeklyAppointments += 1;  // You can update this logic based on your requirements
+        //   doctor.monthlyAppointments += 1; // You can update this logic based on your requirements
+        //   await doctor.save();
+        // }
 
         const user = await userModel.findOne({ _id: appointment.userId }).lean();
 
         return {
           ...appointment,
-          doctorName: doctor ? `${doctor.firstName} ${doctor.lastName}` : 'Unknown Doctor',
+          doctorName: doctor ? `${doctor.name} ${doctor.lastName}` : 'Unknown Doctor',
           patientName: user ? user.name : 'Unknown User',
         };
       })
@@ -93,23 +93,23 @@ app.get('/api/v1/admin/getAllAppointments', async (req, res) => {
   }
 });
 
-app.get('/api/v1/admin/getDoctorStatistics', async (req, res) => {
-  try {
-    const doctors = await doctorModel.find().lean();
+// app.get('/api/v1/admin/getDoctorStatistics', async (req, res) => {
+//   try {
+//     const doctors = await doctorModel.find().lean();
     
-    const doctorStatistics = doctors.map(doctor => ({
-      doctorName: `${doctor.firstName} ${doctor.lastName}`,
-      totalAppointments: doctor.totalAppointments, // Add this field to your doctor model
-      weeklyAppointments: doctor.weeklyAppointments, // Add this field to your doctor model
-      monthlyAppointments: doctor.monthlyAppointments, // Add this field to your doctor model
-    }));
+//     const doctorStatistics = doctors.map(doctor => ({
+//       doctorName: `${doctor.name} ${doctor.lastName}`,
+//       totalAppointments: doctor.totalAppointments, // Add this field to your doctor model
+//       weeklyAppointments: doctor.weeklyAppointments, // Add this field to your doctor model
+//       monthlyAppointments: doctor.monthlyAppointments, // Add this field to your doctor model
+//     }));
 
-    res.json({ success: true, data: doctorStatistics });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Error fetching doctor statistics' });
-  }
-});
+//     res.json({ success: true, data: doctorStatistics });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ success: false, message: 'Error fetching doctor statistics' });
+//   }
+// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {

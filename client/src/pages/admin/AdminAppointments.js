@@ -82,13 +82,11 @@ const AdminAppointments = () => {
   return (
     <AppointmentsPageWrapper>
       <Layout>
-        <h1 className="text-center m-3">All Appointments</h1>
-        <Space style={{ marginBottom: 16, paddingLeft: "50px" }}>
-          <Input placeholder="Search by doctor" onChange={handleDoctorSearch} />
-          </Space>
-          <Space style={{ marginBottom: 16, paddingLeft: "270px" }}>
-          <Input placeholder="Search by patient" onChange={handlePatientSearch} />
-          </Space>
+      <h1 className="text-center m-3">All Appointments</h1>
+  <Space style={{ marginBottom: 16, paddingLeft: "20px" }}>
+    <Input placeholder="Search by doctor" onChange={handleDoctorSearch} />
+    <Input placeholder="Search by patient" onChange={handlePatientSearch} />
+  </Space>
           
         
         <div className="table-container">

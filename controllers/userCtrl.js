@@ -111,10 +111,10 @@ const applyDoctorController = async (req, res) => {
     const notifcation = adminUser.notifcation;
     notifcation.push({
       type: "apply-doctor-request",
-      message: `${newDoctor.firstName} ${newDoctor.lastName} Has Applied For A Doctor Account`,
+      message: `${newDoctor.name} ${newDoctor.lastName} Has Applied For A Doctor Account`,
       data: {
         doctorId: newDoctor._id,
-        name: newDoctor.firstName + " " + newDoctor.lastName,
+        name: newDoctor.name + " " + newDoctor.lastName,
         onClickPath: "/admin/docotrs",
       },
     });

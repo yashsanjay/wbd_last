@@ -187,7 +187,17 @@ const ApplyDoctor = () => {
               required
               rules={[{ required: true }]}
             >
-              <Input type="text" placeholder="your contact no" />
+              <Input type="text" placeholder="fees per consultation" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={24} lg={8}>
+            <Form.Item
+              label="uid"
+              name="uid"
+              required
+              rules={[{ required: true }]}
+            >
+              <Input type="text" placeholder="your uid" />
             </Form.Item>
           </Col>
           <Col xs={24} md={24} lg={8}>

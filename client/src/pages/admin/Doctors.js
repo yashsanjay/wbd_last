@@ -1,6 +1,5 @@
-// Import necessary dependencies
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import Layout from "./../../components/Layout";
 import axios from "axios";
 import { message, Table, Input, Button, Space } from "antd";
@@ -10,11 +9,11 @@ const HomePageWrapper = styled.div`
   max-width: 1350px;
   margin: 0 auto;
   overflow: scroll;
-  height: 100vh; /* Set to 100% of the viewport height */
+  height: 100vh;
   padding: 20px;
 
   .ant-input {
-    width: 300px; /* Set your desired width for the search input */
+    width: 300px;
     margin-bottom: 16px;
   }
 
@@ -38,9 +37,9 @@ const HomePageWrapper = styled.div`
 `;
 
 const Doctors = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const [doctors, setDoctors] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const getDoctors = async () => {
     try {
@@ -88,14 +87,17 @@ const Doctors = () => {
     getDoctors();
   }, []);
 
-  const filteredDoctors = doctors.filter((doctor) =>
-    `${doctor.firstName} ${doctor.lastName}`.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const filteredDoctors = doctors
+    .filter((doctor) =>
+      `${doctor.name} ${doctor.lastName}`
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+    )
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   const handleRedirectToExpanded = (doctorId) => {
-    navigate(`/doctorsexpanded/${doctorId}`); // Pass the doctorId as part of the URL
-};
-
+    navigate(`/doctorsexpanded/${doctorId}`);
+  };
 
   const columns = [
     {
@@ -103,7 +105,7 @@ const Doctors = () => {
       dataIndex: "name",
       render: (text, record) => (
         <span>
-          {record.firstName} {record.lastName}
+          {record.name} {record.lastName}
         </span>
       ),
     },
@@ -146,9 +148,13 @@ const Doctors = () => {
   return (
     <HomePageWrapper>
       <Layout>
-        <h1 className="text-center m-3" >All Doctors</h1>
-        <Space style={{ paddingLeft:"50px" }}>
-          <Input placeholder="Search by name" onChange={handleSearch} style={{ textAlign: "center" }} />
+        <h1 className="text-center m-3">All Doctors</h1>
+        <Space style={{ paddingLeft: "50px" }}>
+          <Input
+            placeholder="Search by name"
+            onChange={handleSearch}
+            style={{ textAlign: "center" }}
+          />
         </Space>
         <Table columns={columns} dataSource={filteredDoctors} />
       </Layout>
