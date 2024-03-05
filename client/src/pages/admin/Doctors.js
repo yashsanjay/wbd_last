@@ -89,7 +89,7 @@ const Doctors = () => {
   }, []);
 
   const filteredDoctors = doctors.filter((doctor) =>
-    `${doctor.firstName} ${doctor.lastName}`.toLowerCase().includes(searchValue.toLowerCase())
+    `${doctor.name} ${doctor.lastName}`.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   const handleRedirectToExpanded = (doctorId) => {
@@ -103,7 +103,7 @@ const Doctors = () => {
       dataIndex: "name",
       render: (text, record) => (
         <span>
-          {record.firstName} {record.lastName}
+          {record.name} {record.lastName}
         </span>
       ),
     },

@@ -5,7 +5,7 @@ const doctorSchema = new mongoose.Schema(
     userId: {
       type: String,
     },
-    firstName: {
+    name: {
       type: String,
       required: [true, "first name is required"],
     },
@@ -24,7 +24,7 @@ const doctorSchema = new mongoose.Schema(
     website: {
       type: String,
     },
-    address: {
+    district: {
       type: String,
       required: [true, "address is required"],
     },
@@ -39,6 +39,13 @@ const doctorSchema = new mongoose.Schema(
     feesPerCunsaltation: {
       type: Number,
       required: [true, "fee is required"],
+    },
+    uid: {
+      type: String,
+      required: true,
+      minlength: [12, "UID must be 12 characters long"],
+      maxlength: [12, "UID must be 12 characters long"],
+      // unique: true, // Assuming UID should be unique
     },
     status: {
       type: String,

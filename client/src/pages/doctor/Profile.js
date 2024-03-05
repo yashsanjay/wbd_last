@@ -95,7 +95,7 @@ const Profile = () => {
             <Col xs={24} md={24} lg={8}>
               <Form.Item
                 label="First Name"
-                name="firstName"
+                name="name"
                 required
                 rules={[{ required: true }]}
               >
@@ -149,7 +149,7 @@ const Profile = () => {
             <Col xs={24} md={24} lg={8}>
               <Form.Item
                 label="Address"
-                name="address"
+                name="district"
                 required
                 rules={[{ required: true }]}
               >

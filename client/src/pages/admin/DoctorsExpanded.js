@@ -4,14 +4,15 @@ import { Col, Row } from "antd";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import './DoctorsExpanded.css'
 
-const DoctorsExpandedWrapper = styled.div`
-  max-width: 1350px;
-  margin: 0 auto;
-  overflow: scroll;
-  height: 200%;
-  padding: 20px;
-`;
+// const DoctorsExpandedWrapper = styled.div`
+//   max-width: 1350px;
+//   margin: 0 auto;
+//   overflow: scroll;
+//   height: 200%;
+//   padding: 20px;
+// `;
 
 const DoctorsExpanded = () => {
   const [doctorDetails, setDoctorDetails] = useState(null);
@@ -43,27 +44,27 @@ const DoctorsExpanded = () => {
   }, []);
 
   return (
-    <DoctorsExpandedWrapper>
+    // <DoctorsExpandedWrapper>
       <Layout>
         {doctorDetails && (
           <>
-            <h1 className="text-center">Doctor Details</h1>
-            <Row gutter={20}>
+            <h1 className="doctors-expanded-heading">Doctor Details</h1>
+            <Row className="doctors-expanded-row" gutter={20}>
               <Col xs={24} md={24} lg={8}>
-                <h4>Personal Details:</h4>
-                <p>First Name: {doctorDetails.firstName}</p>
-                <p>Last Name: {doctorDetails.lastName}</p>
-                <p>Phone: {doctorDetails.phone}</p>
-                <p>Email: {doctorDetails.email}</p>
-                <p>Website: {doctorDetails.website}</p>
-                <p>Address: {doctorDetails.address}</p>
+                <h4 className="doctors-expanded-subheading">Personal Details:</h4>
+                <p className="doctors-expanded-info">First Name: {doctorDetails.name}</p>
+                <p className="doctors-expanded-info">Last Name: {doctorDetails.lastName}</p>
+                <p className="doctors-expanded-info">Phone: {doctorDetails.phone}</p>
+                <p className="doctors-expanded-info">Email: {doctorDetails.email}</p>
+                <p className="doctors-expanded-info">Website: {doctorDetails.website}</p>
+                <p className="doctors-expanded-info">Address: {doctorDetails.district}</p>
               </Col>
               <Col xs={24} md={24} lg={8}>
-                <h4>Professional Details:</h4>
-                <p>Specialization: {doctorDetails.specialization}</p>
-                <p>Experience: {doctorDetails.experience}</p>
-                <p>Fees Per Consultation: {doctorDetails.feesPerCunsaltation}</p>
-                <p>Timings: {doctorDetails.timings.join(" - ")}</p>
+                <h4 className="doctors-expanded-subheading">Professional Details:</h4>
+                <p className="doctors-expanded-info">Specialization: {doctorDetails.specialization}</p>
+                <p className="doctors-expanded-info">Experience: {doctorDetails.experience}</p>
+                <p className="doctors-expanded-info">Fees Per Consultation: {doctorDetails.feesPerCunsaltation}</p>
+                <p className="doctors-expanded-info">Timings: {doctorDetails.timings.join(" - ")}</p>
               </Col>
               <Col xs={24} md={24} lg={8}>
                 {/* Additional columns can be added here */}
@@ -72,7 +73,7 @@ const DoctorsExpanded = () => {
           </>
         )}
       </Layout>
-    </DoctorsExpandedWrapper>
+    // </DoctorsExpandedWrapper>
   );
 };
 
