@@ -17,6 +17,27 @@ const Profile = () => {
   // update doc ==========
   //handle form
   const handleFinish = async (values) => {
+    var originalDate = values.timings[0]._d;
+    if (originalDate === undefined) {
+      originalDate = values.timings[0].$d;
+    }
+    
+    const updatedDate = new Date(originalDate.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+    const hours = updatedDate.getUTCHours().toString().padStart(2, '0');
+    const minutes = updatedDate.getUTCMinutes().toString().padStart(2, '0');
+    const timeString = `${hours}:${minutes}`;
+    console.log(timeString);
+   
+
+    var originalDatee = values.timings[1]._d;
+    if (originalDatee === undefined) {
+      originalDatee = values.timings[1].$d;
+    }
+    const updatedDatee = new Date(originalDatee.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+    const hourss = updatedDatee.getUTCHours().toString().padStart(2, '0');
+    const minutess = updatedDatee.getUTCMinutes().toString().padStart(2, '0');
+    const timeStrings = `${hourss}:${minutess}`;
+    console.log(timeStrings);
     try {
       dispatch(showLoading());
       const res = await axios.post(
@@ -25,8 +46,8 @@ const Profile = () => {
           ...values,
           userId: user._id,
           timings: [
-            moment(values.timings[0]).format("HH:mm"),
-            moment(values.timings[1]).format("HH:mm"),
+            timeString,
+            timeStrings,
           ],
         },
         {
@@ -191,6 +212,7 @@ const Profile = () => {
             </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item label="Timings" name="timings" required>
+             
                 <TimePicker.RangePicker format="HH:mm" />
               </Form.Item>
             </Col>
@@ -203,6 +225,7 @@ const Profile = () => {
           </Row>
         </Form>
       )}
+      
     </Layout>
   );
 };

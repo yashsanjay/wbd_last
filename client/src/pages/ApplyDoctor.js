@@ -27,6 +27,26 @@ const ApplyDoctor = () => {
   const params = useParams();
   //handle form
   const handleFinish = async (values) => {
+
+    const originalDate = values.timings[0].$d;
+    if (originalDate === undefined) {
+      originalDate = values.timings[0]._d;
+    }
+    const updatedDate = new Date(originalDate.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+    const hours = updatedDate.getUTCHours().toString().padStart(2, '0');
+    const minutes = updatedDate.getUTCMinutes().toString().padStart(2, '0');
+    const timeString = `${hours}:${minutes}`;
+    console.log(timeString);
+
+    const originalDatee = values.timings[1].$d;
+    if (originalDatee === undefined) {
+      originalDatee = values.timings[1]._d;
+    }
+    const updatedDatee = new Date(originalDatee.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+    const hourss = updatedDatee.getUTCHours().toString().padStart(2, '0');
+    const minutess = updatedDatee.getUTCMinutes().toString().padStart(2, '0');
+    const timeStrings = `${hourss}:${minutess}`;
+    console.log(timeStrings);
     try {
       dispatch(showLoading());
       const res = await axios.post(
@@ -35,8 +55,8 @@ const ApplyDoctor = () => {
           ...values,
           userId: user._id,
           timings: [
-            moment(values.timings[0]).format("HH:mm"),
-            moment(values.timings[1]).format("HH:mm"),
+            timeString,
+            timeStrings,
           ],
         },
         {

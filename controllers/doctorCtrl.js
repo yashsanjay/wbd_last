@@ -21,6 +21,7 @@ const getDoctorInfoController = async (req, res) => {
 
 // update doc profile
 const updateProfileController = async (req, res) => {
+  // console.log(typeof req.body.timings[0]);
   try {
     const doctor = await doctorModel.findOneAndUpdate(
       { userId: req.body.userId },
@@ -45,6 +46,7 @@ const updateProfileController = async (req, res) => {
 const getDoctorByIdController = async (req, res) => {
   try {
     const doctor = await doctorModel.findOne({ _id: req.body.doctorId });
+    
     res.status(200).send({
       success: true,
       message: "Sigle Doc Info Fetched",
@@ -65,6 +67,32 @@ const doctorAppointmentsController = async (req, res) => {
     const doctor = await doctorModel.findOne({ userId: req.body.userId });
     const appointments = await appointmentModel.find({
       doctorId: doctor._id,
+    });
+    console.log(appointments)
+    res.status(200).send({
+      success: true,
+      message: "Doctor Appointments fetch Successfully",
+      data: appointments,
+
+    });
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error in Doc Appointments",
+    });
+  }
+};
+
+const doctorAppointmentsControllerr = async (req, res) => {
+   
+  try {
+    const doctor = await doctorModel.findOne({ userId: req.body.userId });
+    console.log(req.query.doctorId);
+    const appointments = await appointmentModel.find({
+      doctorId: req.query.doctorId,
     });
     console.log(appointments)
     res.status(200).send({
@@ -172,6 +200,7 @@ module.exports = {
   updateProfileController,
   getDoctorByIdController,
   doctorAppointmentsController,
+  doctorAppointmentsControllerr,
   updateStatusController,
   getUserInfoController,
   
