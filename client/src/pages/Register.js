@@ -106,14 +106,14 @@ const Register = () => {
           <Form.Item
             label="Password"
             name="password"
-            hasFeedback
-            rules={[
-              { required: true, message: 'Please input your password!' },
-              {
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, // Add your password regex pattern here
-                message: 'Password must contain at least 8 characters, including letters and numbers.',
-              },
-            ]}
+            // hasFeedback
+            // rules={[
+            //   { required: true, message: 'Please input your password!' },
+            //   {
+            //     pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, // Add your password regex pattern here
+            //     message: 'Password must contain at least 8 characters, including letters and numbers.',
+            //   },
+            // ]}
           >
             <Input.Password
               iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}

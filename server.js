@@ -12,6 +12,9 @@ const doctorModel = require("./models/doctorModel");
 const userModel = require("./models/userModels");
 const axios = require("axios");
 
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 //dotenv config
 dotenv.config();
 
@@ -61,23 +64,63 @@ app.use("/api/v1/user", require("./routes/userRoutes"));
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
 
+// Swagger setup
+const options = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Your API Documentation of OPIHERBS',
+      version: '1.0.0',
+      description: 'Documentation for your API',
+    },
+    servers: [
+      {
+        url: "http://localhost:8080/"
+      },
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+  },
+  // Specify individual route files
+  apis: ['./routes/userRoutes.js','./routes/adminRoutes.js','./routes/doctorRoutes.js'],
+};
+
+const spec = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec, {
+  swaggerOptions: {
+    plugins: [
+      (swaggerUi, ctx) => {
+        return {
+          preSerialize: (req, document) => {
+            // Add JWT token to the authorization header
+            document.headers['Authorization'] = req.headers.authorization;
+            return document;
+          },
+        };
+      },
+    ],
+  },
+}));
+
+
+
+
 app.get('/api/v1/admin/getAllAppointments', async (req, res) => {
   try {
     const allAppointments = await Appointment.find().lean();
     const appointmentsWithData = await Promise.all(
       allAppointments.map(async (appointment) => {
         const doctor = await doctorModel.findOne({ _id: appointment.doctorId });
-
-        // Update doctor statistics
-        // if (doctor) {
-        //   doctor.totalAppointments += 1;
-        //   doctor.weeklyAppointments += 1;  // You can update this logic based on your requirements
-        //   doctor.monthlyAppointments += 1; // You can update this logic based on your requirements
-        //   await doctor.save();
-        // }
-
+        
         const user = await userModel.findOne({ _id: appointment.userId }).lean();
-
+        
         return {
           ...appointment,
           doctorName: doctor ? `${doctor.name} ${doctor.lastName}` : 'Unknown Doctor',
@@ -85,6 +128,7 @@ app.get('/api/v1/admin/getAllAppointments', async (req, res) => {
         };
       })
     );
+    
 
     res.json({ success: true, data: appointmentsWithData });
   } catch (error) {
@@ -92,24 +136,6 @@ app.get('/api/v1/admin/getAllAppointments', async (req, res) => {
     res.status(500).json({ success: false, message: 'Error fetching appointments' });
   }
 });
-
-// app.get('/api/v1/admin/getDoctorStatistics', async (req, res) => {
-//   try {
-//     const doctors = await doctorModel.find().lean();
-    
-//     const doctorStatistics = doctors.map(doctor => ({
-//       doctorName: `${doctor.name} ${doctor.lastName}`,
-//       totalAppointments: doctor.totalAppointments, // Add this field to your doctor model
-//       weeklyAppointments: doctor.weeklyAppointments, // Add this field to your doctor model
-//       monthlyAppointments: doctor.monthlyAppointments, // Add this field to your doctor model
-//     }));
-
-//     res.json({ success: true, data: doctorStatistics });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ success: false, message: 'Error fetching doctor statistics' });
-//   }
-// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {

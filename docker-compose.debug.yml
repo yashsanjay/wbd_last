@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  opiherbswbd:
+    image: opiherbswbd
+    build:
+      context: .
+      dockerfile: ./Dockerfile
