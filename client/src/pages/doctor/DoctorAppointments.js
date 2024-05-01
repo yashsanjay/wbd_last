@@ -141,34 +141,34 @@ const DoctorAppointments = () => {
       title: "Description",
       dataIndex: "description",
     },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-    {
-      title: "Actions",
-      dataIndex: "actions",
-      render: (text, record) => (
-        <div className="d-flex">
-          {record.status === "pending" && (
-            <div className="d-flex">
-              <button
-                className="btn btn-success"
-                onClick={() => handleStatus(record, "approved")}
-              >
-                Approved
-              </button>
-              <button
-                className="btn btn-danger ms-2"
-                onClick={() => handleStatus(record, "reject")}
-              >
-                Reject
-              </button>
-            </div>
-          )}
-        </div>
-      ),
-    },
+    // {
+    //   title: "Status",
+    //   dataIndex: "status",
+    // },
+    // {
+    //   title: "Actions",
+    //   dataIndex: "actions",
+    //   render: (text, record) => (
+    //     <div className="d-flex">
+    //       {record.status === "pending" && (
+    //         <div className="d-flex">
+    //           <button
+    //             className="btn btn-success"
+    //             onClick={() => handleStatus(record, "approved")}
+    //           >
+    //             Approved
+    //           </button>
+    //           <button
+    //             className="btn btn-danger ms-2"
+    //             onClick={() => handleStatus(record, "reject")}
+    //           >
+    //             Reject
+    //           </button>
+    //         </div>
+    //       )}
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (
@@ -183,7 +183,7 @@ const DoctorAppointments = () => {
             style={{ width: 200 }}
           />
           {loadingUserDetails ? (
-            <Spin size="large" />
+            <Spin size="large" style={{marginRight:'50%'}} />
           ) : (
             <></>
           )}

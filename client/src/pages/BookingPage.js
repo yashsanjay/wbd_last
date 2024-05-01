@@ -2,33 +2,22 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { message, DatePicker, TimePicker } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { showLoading, hideLoading } from "../redux/features/alertSlice";
-import styled from "styled-components";
+import { message } from "antd";
+import { useSelector } from "react-redux";
 import moment from "moment";
 
-import BookingPageWrapper from "./BookingPageStyles"; 
-
-// Define a styled component for HomePage
-const HomePageWrapper = styled.div`
-  /* Styles for the entire HomePage component */
-  max-width: 1350px; /* Set your desired max-width */
-  margin: 0 auto; /* Center the content */
-  overflow: scroll; /* Add both horizontal and vertical scrollbars if needed */
-  height: 200%; /* Ensure the block takes up 100% of available height */
-  padding: 20px; /* Add padding to the content if needed */
-`;
-
 const BookingPage = () => {
-  const [description, setDescription] = useState("");
-
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [doctors, setDoctors] = useState([]);
+  console.log(doctors);
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const dispatch = useDispatch();
+  console.log(date);
+  const [selectedSlot, setSelectedSlot] = useState("");
+  const [bookedSlotsMap, setBookedSlotsMap] = useState([]);
+  console.log(bookedSlotsMap);
+  const [description, setDescription] = useState("");
+  const [appointments, setAppointments] = useState([]);
 
   const getUserData = async () => {
     try {
@@ -39,73 +28,84 @@ const BookingPage = () => {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
+          
         }
       );
       if (res.data.success) {
         setDoctors(res.data.data);
+        setBookedSlotsMap(res.data.data.bookedSlotsMap || {});
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleAvailability = async () => {
+  const getAppointments = async () => {
     try {
-      dispatch(showLoading());
-      const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
-
-      if (moment(formattedDate, "DD-MM-YYYY").isBefore(moment(), "day")) {
-        dispatch(hideLoading());
-        return message.error("Please select a future date for booking.");
-      }
-
-      const selectedDateTime = moment(`${formattedDate} ${time}`, "DD-MM-YYYY HH:mm");
-      if (selectedDateTime.isBefore(moment())) {
-        dispatch(hideLoading());
-        return message.error("Please select a future time for booking.");
-      }
-
-      const res = await axios.post(
-        "/api/v1/user/booking-availbility",
-        { doctorId: params.doctorId, date: formattedDate, time },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+      const res = await axios.get("/api/v1/doctor/doctor-appointmentss", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params: {
+          doctorId: params.doctorId
         }
-      );
-      dispatch(hideLoading());
+      });
       if (res.data.success) {
-        message.success(res.data.message);
-      } else {
-        message.error(res.data.message);
+        setAppointments(res.data.data);
       }
     } catch (error) {
-      dispatch(hideLoading());
       console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+    getAppointments();
+  }, []);
+
+  const getBookedSlots = () => {
+    const bookedMap = {};
+    appointments.forEach(appointment => {
+      const formattedDate = moment(appointment.date).format("DD-MM-YYYY");
+      if (!bookedMap[formattedDate]) {
+        bookedMap[formattedDate] = [];
+      }
+      bookedMap[formattedDate].push(moment(appointment.time).format("HH:mm"));
+    });
+    console.log(bookedMap);
+    setBookedSlotsMap(bookedMap);
+  };
+
+  useEffect(() => {
+    getBookedSlots();
+  }, [appointments]);
+
+  const handleAvailability = () => {
+    if (!date || !selectedSlot) {
+      return message.error("Please select both date and time slot.");
+    }
+
+    const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
+
+    if (bookedSlotsMap[formattedDate]?.includes(selectedSlot)) {
+      message.warning("This slot is already booked.");
+    } else {
+      message.success("Slot is available.");
     }
   };
 
   const handleBooking = async () => {
     try {
-      if (!date || !time || !description) {
-        return message.error("Date, Time, and Description are required");
+      if (!date || !selectedSlot || !description) {
+        return message.error("Date, Time slot, and Description are required");
       }
-  
+
       const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
-  
-      if (moment(formattedDate, "DD-MM-YYYY").isBefore(moment(), "day")) {
-        dispatch(hideLoading());
-        return message.error("Please select a future date for booking.");
+
+      if (bookedSlotsMap[formattedDate]?.includes(selectedSlot)) {
+        return message.warning("This slot is already booked.");
       }
-  
-      const selectedDateTime = moment(`${formattedDate} ${time}`, "DD-MM-YYYY HH:mm");
-      if (selectedDateTime.isBefore(moment())) {
-        dispatch(hideLoading());
-        return message.error("Please select a future time for booking.");
-      }
-  
-      dispatch(showLoading());
+
       const res = await axios.post(
         "/api/v1/user/book-appointment",
         {
@@ -114,8 +114,8 @@ const BookingPage = () => {
           doctorInfo: doctors,
           userInfo: user,
           date: formattedDate,
-          time,
-          description, // Include description in the request body
+          time: selectedSlot,
+          description,
         },
         {
           headers: {
@@ -123,57 +123,115 @@ const BookingPage = () => {
           },
         }
       );
-      dispatch(hideLoading());
+
       if (res.data.success) {
         message.success(res.data.message);
+        // Update the bookedSlotsMap state with the newly booked slot
+        setBookedSlotsMap({
+          ...bookedSlotsMap,
+          [formattedDate]: [
+            ...(bookedSlotsMap[formattedDate] || []),
+            selectedSlot,
+          ],
+        });
+      } else {
+        message.error(res.data.message);
       }
     } catch (error) {
-      dispatch(hideLoading());
       console.log(error);
     }
   };
-  
-
-  useEffect(() => {
-    getUserData();
-    //eslint-disable-next-line
-  }, []);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleAvailability();
   };
 
+  const timeSlots = [
+    "09:00", "09:20", "09:40",
+    "10:00", "10:20", "10:40",
+    "11:00", "11:20", "11:40",
+    "13:00", "13:20", "13:40",
+    "14:00", "14:20", "14:40",
+    "15:00", "15:20", "15:40",
+    "17:00", "17:20", "17:40",
+    "18:00", "18:20", "18:40",
+    "19:00", "19:20", "19:40",
+  ];
+
   return (
-    // <HomePageWrapper>
     <Layout>
+    
       <h3 style={{ textAlign: 'center', fontWeight: 'bold', color: 'black', paddingTop: '15px', paddingBottom: '15px', backgroundColor:"#005b6d", color:"#ffffff" }}>Booking Page</h3>
-      <div className="container m-2" style={{ height:'500px' }} >
+      <div style={{minHeight:'73vh'}} className="container m-2" >
         {doctors && (
-          <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd' }}>
-         <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
+          <div style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', margin: '20px', border: '1px solid #ddd'}}>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Dr.{doctors.firstName} {doctors.lastName}
             </h4>
-            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', marginLeft: '20px', border: '1px solid #0000' }}>Fees : {doctors.feesPerCunsaltation}</h4>
+            <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>Fees : {doctors.feesPerCunsaltation}</h4>
             <h4 style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '20px', border: '1px solid #0000' }}>
               Timings : {doctors.timings && doctors.timings[0]} -{" "}
               {doctors.timings && doctors.timings[1]}{" "}
             </h4>
             <form onSubmit={handleFormSubmit}>
-            <div className="d-flex flex-column w-200" style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', border: '1px solid #0000' }}>
+              <div className="d-flex flex-column w-200" style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', border: '1px solid #0000' }}>
                 <input
                   type="date"
                   className="m-2"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  min={moment().format("YYYY-MM-DD")}
+                  onChange={(e) =>{ 
+                    console.log(e.target.value);
+                    setDate(e.target.value)}}
                 />
 
-                <input
-                  type="time"
-                  className="mt-3"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
+        {/* <div className="practo-time-slots">
+          {timeSlots.map((slot, index) => {
+            // console.log(date);
+            const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
+            // console.log(formattedDate);
+            const isBooked = bookedSlotsMap[formattedDate]?.includes(slot);
+            console.log(bookedSlotsMap);
+            // console.log(bookedSlotsMap[formattedDate]?.includes(slot));
+            return (
+              <button
+                key={index}
+                className={`practo-slot ${isBooked ? 'booked' : ''}`}
+                onClick={() => setSelectedSlot(slot)}
+                disabled={isBooked}
+              >
+                {isBooked ? 'Booked' : slot}
+              </button>
+            );
+          })}
+        </div> */}
+   <div className="practo-time-slots">
+    {date && <h1>Avaliable slots</h1>}
+  {date && timeSlots.map((slot, index) => {
+    const formattedDate = moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
+    const isBooked = bookedSlotsMap[formattedDate]?.includes(slot);
+
+    // Show the slot only if it's not booked
+    if (!isBooked) {
+      return (
+        
+        <button
+          key={index}
+          className="practo-slot"
+          onClick={() => setSelectedSlot(slot)}
+        >
+          {slot}
+        </button>
+      );
+    } else {
+      return null; // If booked, don't render the button
+    }
+  })}
+</div>
+
+
+
 
                 <textarea
                   placeholder="Describe your symptoms..."
@@ -181,21 +239,19 @@ const BookingPage = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                
               </div>
+              <button
+                className="btn btn-dark mt-2"
+                onClick={handleBooking}
+                style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', width:'300px' , border: '1px solid #0000' }}
+              >
+                Book Now
+              </button>
             </form>
-            <button
-              className="btn btn-dark mt-2"
-              onClick={handleBooking}
-              style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0)', margin: '10px', width:'300px' , border: '1px solid #0000' }}
-            >
-              Book Now
-            </button>
           </div>
         )}
       </div>
     </Layout>
-    // </HomePageWrapper>
   );
 };
 
