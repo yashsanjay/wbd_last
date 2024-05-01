@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
-     "start":"nodemon server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "techinfyt ",
