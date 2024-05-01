@@ -21,8 +21,8 @@ if (!fs.existsSync(logsFolder)) {
   fs.mkdirSync(logsFolder);
 }
 
-// Create a write stream (in append mode) for the logs
-const accessLogStream = fs.createWriteStream(path.join(logsFolder, 'access.log'), { flags: 'a' });
+// // Create a write stream (in append mode) for the logs
+// const accessLogStream = fs.createWriteStream(path.join(logsFolder, 'access.log'), { flags: 'a' });
 
 //mongodb connection
 connectDB();
@@ -53,8 +53,8 @@ app.post('/upload', upload.single('profileImage'), (req, res) => {
 //middlewares
 app.use(express.json());
 
-// Log requests to the access.log file
-app.use(morgan("combined", { stream: accessLogStream }));
+// // Log requests to the access.log file
+// app.use(morgan("combined", { stream: accessLogStream }));
 
 //routes
 app.use("/api/v1/user", require("./routes/userRoutes"));
