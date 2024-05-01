@@ -5,7 +5,8 @@ const {
   getDoctorByIdController,
   doctorAppointmentsController,
   updateStatusController,
-  getUserInfoController
+  getUserInfoController,
+  doctorAppointmentsControllerr,
 } = require("../controllers/doctorCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 const router = express.Router();
