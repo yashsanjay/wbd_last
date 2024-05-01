@@ -34,4 +34,4 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm test || echo "no test specified"
+        run: npm test 
